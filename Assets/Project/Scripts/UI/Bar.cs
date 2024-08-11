@@ -1,6 +1,3 @@
-using System;
-using GluonGui;
-using Project.Game.Scripts.MVVM.MVVM1.UI.Views;
 using UnityEngine;
 using UnityEngine.UI;
 

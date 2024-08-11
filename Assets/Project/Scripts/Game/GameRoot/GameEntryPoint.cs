@@ -11,6 +11,9 @@ namespace Build.Game.Scripts.Game.GameRoot
 {
     public class GameEntryPoint
     {
+        private const string UIRootViewPath = "UIRoot";
+        private const string CoroutinesName = "[Coroutines]";
+        
         private static GameEntryPoint _instance;
         
         private Coroutines _coroutines;
@@ -28,10 +31,10 @@ namespace Build.Game.Scripts.Game.GameRoot
 
         private GameEntryPoint()
         {
-            _coroutines = new GameObject("[Coroutines]").AddComponent<Coroutines>();
+            _coroutines = new GameObject(CoroutinesName).AddComponent<Coroutines>();
             Object.DontDestroyOnLoad(_coroutines.gameObject);
 
-            var prefabUIRoot = Resources.Load<UIRootView>("UIRoot");
+            var prefabUIRoot = Resources.Load<UIRootView>(UIRootViewPath);
             _uiRoot = Object.Instantiate(prefabUIRoot);
             Object.DontDestroyOnLoad(_uiRoot.gameObject);
         }

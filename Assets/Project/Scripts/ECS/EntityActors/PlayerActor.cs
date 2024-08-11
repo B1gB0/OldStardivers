@@ -18,7 +18,7 @@ namespace Build.Game.Scripts.ECS.EntityActors
         [field: SerializeField] public MiningToolActor MiningToolActor { get; private set; }
 
         [field: SerializeField] public List<Weapon> Weapons { get; private set; }
-        
+
         private void OnEnable()
         {
             Health.Die += Die;
