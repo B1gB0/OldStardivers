@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using R3;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class UIMainMenuRootBinder : MonoBehaviour
 {
-    [SerializeField] public Button _playButton;
-    [SerializeField] public AudioSource _playButtonSound;
+    [SerializeField] private Button _playButton;
+    [SerializeField] private AudioSource _playButtonSound;
 
     private Subject<Unit> _exitSceneSubjectSignal;
 

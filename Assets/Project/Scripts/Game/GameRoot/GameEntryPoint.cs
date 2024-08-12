@@ -5,6 +5,7 @@ using R3;
 using Source.Game.Scripts;
 using Source.Game.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace Build.Game.Scripts.Game.GameRoot

@@ -194,6 +194,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6264239702023233306}
     - target: {fileID: 5550235183740354961, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
+      propertyPath: _isAutoExpandPool
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550235183740354961, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: _miningStoneSoundPrefab
       value: 
       objectReference: {fileID: 9133455839186376225, guid: 6cee5fb050d0d2f4697797421f85dc91, type: 3}

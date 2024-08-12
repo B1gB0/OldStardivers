@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -20,8 +21,9 @@ namespace Project.Scripts.UI
         
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _effectsVolumeSlider;
-
+        
         private float _minValueSlider = 0f;
+        private float _startValueSlider = 0.8f;
         private float _maxValueSlider = 1f;
 
         private float _playTime = 1f;
@@ -31,7 +33,7 @@ namespace Project.Scripts.UI
         {
             _backToSceneButton.onClick.AddListener(Hide);
             _settingsButton.gameObject.SetActive(false);
-            
+
             if (SceneManager.GetActiveScene().name == Scenes.Gameplay)
             {
                 Time.timeScale = _stopTime;
@@ -55,14 +57,14 @@ namespace Project.Scripts.UI
             _effectsVolumeSlider.onValueChanged.RemoveListener(ChangeEffectsVolume);
         }
 
-        public void ChangeMusicVolume(float volume)
+        private void ChangeMusicVolume(float volume)
         {
             _mixer.audioMixer.SetFloat(MusicVolume, Mathf.Lerp(_minVolume, _maxVolume, volume));
 
             PlayerPrefs.SetFloat(MusicVolume, volume);
         }
 
-        public void ChangeEffectsVolume(float volume)
+        private void ChangeEffectsVolume(float volume)
         {
             _mixer.audioMixer.SetFloat(EffectsVolume, Mathf.Lerp(_minVolume, _maxVolume, volume));
 
@@ -79,10 +81,17 @@ namespace Project.Scripts.UI
             gameObject.SetActive(false);
         }
 
-        public void SetVolumeValues()
+        public void SetValuesVolume()
         {
             _musicVolumeSlider.value = PlayerPrefs.GetFloat(MusicVolume);
             _effectsVolumeSlider.value = PlayerPrefs.GetFloat(EffectsVolume);
+
+            if (PlayerPrefs.GetFloat(MusicVolume) == _minValueSlider &&
+                PlayerPrefs.GetFloat(EffectsVolume) == _minValueSlider)
+            {
+                _musicVolumeSlider.value = _startValueSlider;
+                _effectsVolumeSlider.value = _startValueSlider;
+            }
         }
     }
 }

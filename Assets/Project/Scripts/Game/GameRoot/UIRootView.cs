@@ -1,6 +1,7 @@
 ﻿using System;
 using Project.Scripts.UI;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Source.Game.Scripts
@@ -17,8 +18,13 @@ namespace Source.Game.Scripts
 
         private void Awake()
         {
-            _settingsPanel.SetVolumeValues();
             HideLoadingScreen();
+        }
+
+        private void Start()
+        {
+            _settingsPanel.SetValuesVolume();
+            _settingsPanel.Hide();
         }
 
         private void OnEnable()

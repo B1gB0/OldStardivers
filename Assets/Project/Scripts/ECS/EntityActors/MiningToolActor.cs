@@ -15,9 +15,11 @@ namespace Build.Game.Scripts.ECS.EntityActors
         
         [SerializeField] private Transform _detectionPoint;
         [SerializeField] private Transform _hitEffectPoint;
-
-        [SerializeField] private MiningStoneSound _miningStoneSoundPrefab;
         [SerializeField] private ParticleSystem _hitEffect;
+        
+        [SerializeField] private MiningStoneSound _miningStoneSoundPrefab;
+        
+        [SerializeField] private bool _isAutoExpandPool = false;
 
         private ParticleSystem _hitEffectRef;
 
@@ -34,8 +36,10 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
         private void Awake()
         {
-            _poolMiningSoundsOfStone = new ObjectPool<MiningStoneSound>(_miningStoneSoundPrefab, _countSounds, 
+            _poolMiningSoundsOfStone = new ObjectPool<MiningStoneSound>(_miningStoneSoundPrefab, _countSounds,
                 new GameObject(ObjectPoolSoundsOfMiningStoneName).transform);
+
+            _poolMiningSoundsOfStone.AutoExpand = _isAutoExpandPool;
             
             _hitEffectRef = Instantiate(_hitEffect, _hitEffectPoint);
             _hitEffectRef.Stop();
@@ -62,9 +66,9 @@ namespace Build.Game.Scripts.ECS.EntityActors
                     MiningStoneSound sound = _poolMiningSoundsOfStone.GetFreeElement();
                     
                     sound.AudioSource.PlayOneShot(sound.AudioSource.clip);
-            
+
                     StartCoroutine(sound.OffSound());
-                    
+
                     _stoneRef.Health.TakeDamage(_damage);
                     _stoneRef.Health.SetHit(true);
 
