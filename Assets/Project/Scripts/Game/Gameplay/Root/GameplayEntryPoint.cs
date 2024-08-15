@@ -25,6 +25,7 @@ namespace Build.Game.Scripts.Game.Gameplay
         private LevelInitData _levelData;
         private EnemyInitData _enemyData;
         private StoneInitData _stoneData;
+        private CapsuleInitData _capsuleData;
 
         private GameInitSystem _gameInitSystem;
 
@@ -40,13 +41,14 @@ namespace Build.Game.Scripts.Game.Gameplay
             _levelData = _dataFactory.CreateLevelData();
             _enemyData = _dataFactory.CreateEnemyData();
             _stoneData = _dataFactory.CreateStoneData();
+            _capsuleData = _dataFactory.CreateCapsuleData();
 
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
 
             _systems.Inject(_sceneUIRootPrefab);
 
-            _systems.Add(new GameInitSystem(_playerData, _enemyData, _stoneData,
+            _systems.Add(_gameInitSystem = new GameInitSystem(_playerData, _enemyData, _stoneData, _capsuleData,
                 _levelData.EnemySpawnPoints, _levelData.PlayerSpawnPoint, _levelData.ResourcesSpawnPoints));
             _systems.Add(new PlayerInputSystem());
             _systems.Add(new PlayerMoveSystem());
@@ -61,12 +63,13 @@ namespace Build.Game.Scripts.Game.Gameplay
             
             //_healthBarPresenter = new HealthBarPresenter(_sceneUIRootPrefab.HealthBar, GameObject.FindObjectOfType<PlayerActor>().Health);
             //_healthBarPresenter.Enable();
-
-            _healthBar = _barsFactory.CreateHealthBar(FindObjectOfType<PlayerActor>().Health);
+            
+            _healthBar = _barsFactory.CreateHealthBar(_gameInitSystem.PlayerHealth);
+            _healthBar.Show();
         }
 
         private void Update()
-        { ;
+        {
             _systems?.Run();
         }
         

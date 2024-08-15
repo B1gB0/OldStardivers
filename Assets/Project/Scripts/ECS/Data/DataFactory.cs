@@ -11,6 +11,7 @@ public class DataFactory
     private readonly string _firstLevel = "SO/FirstLevel";
     private readonly string _enemyData = "SO/EnemyData";
     private readonly string _stoneData = "SO/StoneData";
+    private readonly string _capsuleData = "SO/CapsuleData";
     
     public PlayerInitData CreatePlayerData()
     {
@@ -30,5 +31,10 @@ public class DataFactory
     public StoneInitData CreateStoneData()
     {
         return Resources.Load<StoneInitData>(_stoneData);
+    }
+
+    public CapsuleInitData CreateCapsuleData()
+    {
+        return Resources.Load<CapsuleInitData>(_capsuleData);
     }
 }

@@ -7,7 +7,6 @@ public class HealthBar : Bar
     public void Construct(Health health)
     {
         _health = health;
-        Show();
     }
 
     private void OnEnable()
