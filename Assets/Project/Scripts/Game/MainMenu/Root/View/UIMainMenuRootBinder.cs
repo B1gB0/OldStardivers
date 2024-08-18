@@ -3,28 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using R3;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class UIMainMenuRootBinder : MonoBehaviour
 {
-    [field: SerializeField] public Button PlayButton { get; private set; }
-    [field: SerializeField] public Button SettingsButton { get; private set; }
-    [field: SerializeField] public Button ExitButton { get; private set; }
-    
+    [SerializeField] private Button _playButton;
+    [SerializeField] private AudioSource _playButtonSound;
+
     private Subject<Unit> _exitSceneSubjectSignal;
 
     private void OnEnable()
     {
-        PlayButton.onClick.AddListener(HandleGoToGameplayButtonClick);
+        _playButton.onClick.AddListener(HandleGoToGameplayButtonClick);
     }
 
     private void OnDisable()
     {
-        PlayButton.onClick.RemoveListener(HandleGoToGameplayButtonClick);
+        _playButton.onClick.RemoveListener(HandleGoToGameplayButtonClick);
     }
 
     public void HandleGoToGameplayButtonClick()
     {
+        _playButtonSound.PlayOneShot(_playButtonSound.clip);
         _exitSceneSubjectSignal?.OnNext(Unit.Default);
     }
 

@@ -1,5 +1,8 @@
 ﻿using System;
+using Project.Scripts.UI;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 namespace Source.Game.Scripts
 {
@@ -8,9 +11,44 @@ namespace Source.Game.Scripts
         [SerializeField] private GameObject _loadingScreen;
         [SerializeField] private Transform _uiSceneContainer;
 
+        [SerializeField] private SettingsPanel _settingsPanel;
+        
+        [SerializeField] private Button _settingsButton;
+        [SerializeField] private Button _backToSceneButton;
+
         private void Awake()
         {
             HideLoadingScreen();
+        }
+
+        private void Start()
+        {
+            _settingsPanel.SetValuesVolume();
+            _settingsPanel.Hide();
+        }
+
+        private void OnEnable()
+        {
+            _settingsButton.onClick.AddListener(_settingsPanel.Show);
+            _settingsButton.onClick.AddListener(HideUIScene);
+            _backToSceneButton.onClick.AddListener(ShowUIScene);
+        }
+
+        private void OnDisable()
+        {
+            _settingsButton.onClick.RemoveListener(_settingsPanel.Show);
+            _settingsButton.onClick.RemoveListener(HideUIScene);
+            _backToSceneButton.onClick.RemoveListener(ShowUIScene);
+        }
+
+        public void ShowUIScene()
+        {
+            _uiSceneContainer.gameObject.SetActive(true);
+        }
+
+        public void HideUIScene()
+        {
+            _uiSceneContainer.gameObject.SetActive(false);
         }
 
         public void ShowLoadingScreen()

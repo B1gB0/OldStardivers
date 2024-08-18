@@ -20,44 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c4782c1-9f1c-4e6d-9e25-339034dcb498" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Materials/CapsuleMaterial.mat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Materials/CapsuleMaterial.mat.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Models.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Models/Capsule.fbx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Models/Capsule.fbx.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Models/CapsuleParts.fbx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Models/CapsuleParts.fbx.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Prefabs/Capsule.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Prefabs/Capsule/Capsule.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Prefabs/Capsule/Capsule.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Prefabs/Capsule/CapsuleParts.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Prefabs/Capsule/CapsuleParts.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Resources/SO/CapsuleData.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Resources/SO/CapsuleData.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/Data/CapsuleInitData.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/CapsuleParts.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/CapsuleParts.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/System/EnemyWaveSpawnSystem.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/System/EnemyWaveSpawnSystem.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Prefabs/UI/Root/MainMenuUI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Prefabs/UI/Root/MainMenuUI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Resources/UIRoot.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Resources/UIRoot.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scenes/Gameplay.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scenes/Gameplay.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/Data/DataFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/Data/DataFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/System/GameInitSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/ECS/System/GameInitSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Game/Gameplay/Root/GameplayEntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Game/Gameplay/Root/GameplayEntryPoint.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Localization/LocalizationLanguageSwitcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Localization/LocalizationLanguageSwitcher.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/UI/HealthBar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/UI/HealthBar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/UIRoot.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Project/UIRoot.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Materials/Misc/Fire/candle_soft2_AB.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Materials/Misc/Fire/candle_soft2_AB.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Materials/Misc/Fire/fire_soft_AB.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Materials/Misc/Fire/fire_soft_AB.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Materials/Misc/Fire/fire_soft_spiky_ADD.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Materials/Misc/Fire/fire_soft_spiky_ADD.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Prefabs/Combat/Explosions/BulletExplosion/BulletExplosionPink.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Prefabs/Combat/Explosions/BulletExplosion/BulletExplosionPink.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Prefabs/Environment/Fire/Trails/SpikyFireTrail.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Third Party/UnityAssetStore/Effects/Epic Toon FX/Prefabs/Environment/Fire/Trails/SpikyFireTrail.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +31,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/UI/SettingsPanel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/ECS/Data/CapsuleInitData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/E97D8420-4F8D-4AEF-92B5-38C5BAB948F1/c3/29b1ff76/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Project/Scripts/Audio/AudioService.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -85,6 +45,7 @@
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Sounds/Sound.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Sounds/AssaultRifleSoundOfShot.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Sounds/MiningStoneSound.cs" />
+        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/PlayerActor.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Weapon/AssaultRifle.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/MiningToolActor.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Audio/AudioService.cs" />
@@ -94,18 +55,6 @@
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/UI/SettingsPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Localization/LocalizationSwitcherLanguage.cs" />
         <option value="$PROJECT_DIR$/Assets/Project/Scripts/Localization/LocalizationLanguageSwitcher.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/UI/HealthBar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/PlayerActor.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/System/EnemyWaveSpawnSystem.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/Capsule/Capsule.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/Capsule/CapsuleActor.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/Data/DataFactory.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/Game/Gameplay/Root/GameplayEntryPoint.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/Data/CapsuleInitData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/Weapon/ClosestEnemyDetector.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/System/GameInitSystem.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/CapsuleActor.cs" />
-        <option value="$PROJECT_DIR$/Assets/Project/Scripts/ECS/EntityActors/CapsuleParts.cs" />
       </list>
     </option>
   </component>
@@ -162,8 +111,7 @@
       <workItem from="1723482026034" duration="258000" />
       <workItem from="1723497877182" duration="139000" />
       <workItem from="1723502005896" duration="3032000" />
-      <workItem from="1723557609104" duration="1439000" />
-      <workItem from="1723713549768" duration="16938000" />
+      <workItem from="1723979969306" duration="1000" />
     </task>
     <servers />
   </component>
