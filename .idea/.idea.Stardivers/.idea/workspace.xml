@@ -20,7 +20,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c4782c1-9f1c-4e6d-9e25-339034dcb498" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/indexLayout.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Stardivers/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/ItemIcons/128/128.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/ItemIcons/256/256.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/ItemIcons/32/32.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/ItemIcons/512/512.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/ItemIcons/64/64.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/ItemIcons/backup/backup.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/Pictoicons/128/128.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/Pictoicons/256/256.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/Pictoicons/32/32.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/Pictoicons/512/512.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/Pictoicons/64/64.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/Pictoicons/backup/backup.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/RuneIcons/128/128.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/RuneIcons/256/256.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/RuneIcons/512/512.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/Others/GUI Kit Casual Game/ResourcesData/Sprite/_Icons/RuneIcons/64/64.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Effects/Epic Toon FX/Upgrade/ETFX 2019.2.3f1 LWRP Upgrade.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Effects/Epic Toon FX/Upgrade/ETFX 2019.3 URP Fix.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Effects/Epic Toon FX/Upgrade/ETFX Standard Materials.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Effects/Travis Game Assets/Hit Impact Effects/Pipeline Upgrade/Hit Impacts Effects FREE - URP.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Enviroment/JC_StylizedRocks_Lite/JC_StylizedRocks_Lite_2022.3.1_HDRP_v1.0.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Enviroment/JC_StylizedRocks_Lite/JC_StylizedRocks_Lite_2022.3.1_URP_v1.0.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Enviroment/PolygonBattleRoyale/URP_ExtractMe/Unity_2020.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Enviroment/PolygonBattleRoyale/URP_ExtractMe/Unity_20202.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Space Capsule/Whaleride/SpaceRocket (Capsule, Cartoon)/Prefabs/rocket.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Assets/UnityAssetStore/Space Capsule/Whaleride/SpaceRocket (Capsule, Cartoon)/Prefabs/rocket.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/WebGLTemplates/FullscreenWindow/index.html.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/WebGLTemplates/FullscreenWindow/index.html.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Project/Scripts/Capsule/CapsuleActor.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Project/Scripts/Capsule/CapsuleActor.cs.meta" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +142,13 @@
       <workItem from="1723482026034" duration="258000" />
       <workItem from="1723497877182" duration="139000" />
       <workItem from="1723502005896" duration="3032000" />
+<<<<<<< Updated upstream
       <workItem from="1723979969306" duration="1000" />
+=======
+      <workItem from="1723557609104" duration="1439000" />
+      <workItem from="1723713549768" duration="16938000" />
+      <workItem from="1723980099429" duration="70000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

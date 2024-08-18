@@ -1274,8 +1274,10 @@
           <e p="Audio" t="Include" />
           <e p="Build.Stardivers.asmdef" t="Include" />
           <e p="Materials" t="Include" />
+          <e p="Models" t="Include" />
           <e p="Prefabs" t="Include">
             <e p="AudioSource" t="Include" />
+            <e p="Capsule" t="Include" />
             <e p="Characters" t="Include" />
             <e p="Effects" t="Include" />
             <e p="Enviroment" t="Include" />
@@ -1326,6 +1328,7 @@
                 <e p="ResourceComponent.cs" t="Include" />
               </e>
               <e p="Data" t="Include">
+                <e p="CapsuleInitData.cs" t="Include" />
                 <e p="DataFactory.cs" t="Include" />
                 <e p="EnemyInitData.cs" t="Include" />
                 <e p="InitData.cs" t="Include" />
@@ -1335,6 +1338,8 @@
                 <e p="StoneInitData.cs" t="Include" />
               </e>
               <e p="EntityActors" t="Include">
+                <e p="CapsuleActor.cs" t="Include" />
+                <e p="CapsuleParts.cs" t="Include" />
                 <e p="EnemyActor.cs" t="Include" />
                 <e p="MiningToolActor.cs" t="Include" />
                 <e p="PlayerActor.cs" t="Include" />
@@ -1349,6 +1354,7 @@
               <e p="System" t="Include">
                 <e p="EnemyAnimatedSystem.cs" t="Include" />
                 <e p="EnemyAttackSystem.cs" t="Include" />
+                <e p="EnemyWaveSpawnSystem.cs" t="Include" />
                 <e p="FollowSystem.cs" t="Include" />
                 <e p="GameInitSystem.cs" t="Include" />
                 <e p="MainCameraSystem.cs" t="Include" />
@@ -1504,10 +1510,6 @@
               <e p="Mines.cs" t="Include" />
               <e p="Weapon.cs" t="Include" />
             </e>
-          </e>
-          <e p="Shaders" t="Include">
-            <e p="Mask.shader" t="Include" />
-            <e p="Stone.shader" t="Include" />
           </e>
           <e p="Textures" t="Include" />
         </e>
