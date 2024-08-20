@@ -25,7 +25,7 @@ public class AssaultRifle : Weapon
     private float _lastShotTime;
     private float _minValue = 0f;
 
-    private EnemyActor _closestEnemy;
+    private EnemyActor closestEnemy;
 
     private ObjectPool<Bullet> _poolBullets;
     private ObjectPool<AssaultRifleSoundOfShot> _poolSoundsOfShots;
@@ -42,11 +42,11 @@ public class AssaultRifle : Weapon
 
     private void Update()
     {
-        _closestEnemy = Detector.СlosestEnemy;
+        closestEnemy = Detector.СlosestEnemy;
         
-        if (_closestEnemy != null)
+        if (closestEnemy != null)
         {
-            if (Vector3.Distance(_closestEnemy.transform.position, transform.position) <= _rangeAttack)
+            if (Vector3.Distance(closestEnemy.transform.position, transform.position) <= _rangeAttack)
             {
                 Shoot();
             }
@@ -55,7 +55,7 @@ public class AssaultRifle : Weapon
     
     public override void Shoot()
     {
-        if (_lastShotTime <= _minValue && _closestEnemy.Health.Value > _minValue)
+        if (_lastShotTime <= _minValue && closestEnemy.Health.Value > _minValue)
         {
             Bullet bullet = _poolBullets.GetFreeElement();
 
@@ -67,7 +67,7 @@ public class AssaultRifle : Weapon
 
             bullet.transform.position = _shootPoint.position;
 
-            bullet.SetDirection(_closestEnemy.transform);
+            bullet.SetDirection(closestEnemy.transform);
 
             _lastShotTime = _delay;
         }

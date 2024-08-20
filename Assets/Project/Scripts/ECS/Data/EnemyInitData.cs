@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Build.Game.Scripts.ECS.Data.SO
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "InitData/EnemyData")]
     public class EnemyInitData : InitData
     {
         [field: SerializeField] public EnemyActor EnemyPrefab { get; private set; }

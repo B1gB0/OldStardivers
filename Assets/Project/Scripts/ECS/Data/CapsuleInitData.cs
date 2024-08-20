@@ -4,7 +4,7 @@ using Build.Game.Scripts.ECS.EntityActors;
 using Project.Scripts.ECS.Data;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "InitData/CapsuleData")]
 public class CapsuleInitData : InitData
 {
     [field: SerializeField] public CapsuleActor Prefab { get; private set; }

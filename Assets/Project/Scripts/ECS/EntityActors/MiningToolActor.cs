@@ -23,7 +23,7 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
         private ParticleSystem _hitEffectRef;
 
-        private StoneActor _stoneRef;
+        private StoneActor stoneRef;
 
         private int _countSounds = 4;
 
@@ -52,8 +52,8 @@ namespace Build.Game.Scripts.ECS.EntityActors
             if (Physics.Raycast(_detectionPoint.position, _detectionPoint.forward, out hit,
                 _miningRange))
             {
-                if(_stoneRef != null)
-                    _stoneRef.Health.SetHit(false);
+                if(stoneRef != null)
+                    stoneRef.Health.SetHit(false);
                 
                 if (!hit.collider.TryGetComponent(out StoneActor resource)) return;
                 
@@ -61,7 +61,7 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
                 if (_lastHitTime <= _minValue)
                 {
-                    _stoneRef = resource;
+                    stoneRef = resource;
 
                     MiningStoneSound sound = _poolMiningSoundsOfStone.GetFreeElement();
                     
@@ -69,8 +69,8 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
                     StartCoroutine(sound.OffSound());
 
-                    _stoneRef.Health.TakeDamage(_damage);
-                    _stoneRef.Health.SetHit(true);
+                    stoneRef.Health.TakeDamage(_damage);
+                    stoneRef.Health.SetHit(true);
 
                     _hitEffectRef.Play();
 

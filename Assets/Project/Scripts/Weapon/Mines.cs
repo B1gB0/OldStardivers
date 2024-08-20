@@ -1,5 +1,4 @@
-﻿using Project.Game.Scripts.MVVM;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Project.Game.Scripts
 {

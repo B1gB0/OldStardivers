@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ public abstract class Bar : MonoBehaviour, IView
 {
     [SerializeField] protected Slider SmoothSlider;
     [SerializeField] protected Slider Slider;
-    [SerializeField] protected Text Text;
+    [SerializeField] protected TMP_Text Text;
     
     public void Show()
     {
@@ -17,11 +18,10 @@ public abstract class Bar : MonoBehaviour, IView
         gameObject.SetActive(false);
     }
     
-    public void SetValues(float currentValue, float maxValue, float targetValue)
+    protected void SetValues(float currentValue, float maxValue, float targetValue)
     {
         SmoothSlider.value = currentValue / maxValue;
         Slider.value = targetValue / maxValue;
         Text.text = (int)targetValue + "/" + (int)maxValue;
     }
-
 }

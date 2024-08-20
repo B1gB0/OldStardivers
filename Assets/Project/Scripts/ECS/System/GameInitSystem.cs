@@ -4,10 +4,11 @@ using Build.Game.Scripts.ECS.Components;
 using Build.Game.Scripts.ECS.Data;
 using Build.Game.Scripts.ECS.Data.SO;
 using Build.Game.Scripts.ECS.EntityActors;
+using DI;
 using Leopotam.Ecs;
-using Project.Game.Scripts.Player.PlayerInputModule;
-using Project.Scripts.MVP.Presenters;
+using Project.Scripts.Score;
 using UnityEngine;
+using Zenject;
 
 namespace Build.Game.Scripts.ECS.System
 {
@@ -19,7 +20,7 @@ namespace Build.Game.Scripts.ECS.System
 
         private readonly PlayerInitData _playerInitData;
         private readonly EnemyInitData _enemyInitData;
-        private readonly StoneInitData _stoneData;
+        private readonly StoneInitData _stoneInitData;
         private readonly CapsuleInitData _capsuleInitData;
         
         private readonly List<Vector3> _enemySpawnPoints;
@@ -29,44 +30,46 @@ namespace Build.Game.Scripts.ECS.System
         private Vector3 _capsuleSpawnPoint;
         private float _capsuleHeight = 20f;
         
-        private IEnumerator _coroutine;
-        private PlayerActor _player;
-        private EnemyActor _enemy;
-        private CapsuleActor _capsule;
+        private PlayerActor player;
+        private EnemyActor enemy;
+        private CapsuleActor capsule;
 
         private float _lastSpawnTime;
         private float _minValue = 0f;
         private float _delay = 10f;
 
         private ObjectPool<EnemyActor> _enemyPool;
-
         private bool _isAutoExpand = true;
 
+        private Score _score;
+        
         public Health PlayerHealth { get; private set; }
+        
+        public Transform PlayerTransform { get; private set; }
 
-        public GameInitSystem(PlayerInitData playerData, EnemyInitData enemyData, StoneInitData stoneData,
-            CapsuleInitData capsuleData, List<Vector3> enemySpawnPoints, Vector3 playerSpawnPoint, List<Vector3> stoneSpawnPoints)
+        public GameInitSystem(PlayerInitData playerData, EnemyInitData enemyData, StoneInitData stoneInitData,
+            CapsuleInitData capsuleData, LevelInitData levelData)
         {
             _playerInitData = playerData;
             _enemyInitData = enemyData;
-            _stoneData = stoneData;
+            _stoneInitData = stoneInitData;
             _capsuleInitData = capsuleData;
             
-            _enemySpawnPoints = enemySpawnPoints;
-            _playerSpawnPoint = playerSpawnPoint;
-            _stoneSpawnPoints = stoneSpawnPoints;
+            _enemySpawnPoints = levelData.EnemySpawnPoints;
+            _playerSpawnPoint = levelData.PlayerSpawnPoint;
+            _stoneSpawnPoints = levelData.ResourcesSpawnPoints;
         }
 
         public void Init()
         {
             _lastSpawnTime = _delay;
             
-            _player = CreatePlayer();
-            _capsule = CreateCapsule();
+            player = CreatePlayer();
+            capsule = CreateCapsule();
             
-            PlayerHealth = _player.Health;
+            PlayerHealth = player.Health;
             
-            _player.gameObject.SetActive(false);
+            player.gameObject.SetActive(false);
 
             //_enemyPool = new ObjectPool<EnemyActor>(_enemyInitData.EnemyPrefab, _enemySpawnPoints.Count,
                 //new GameObject(EnemyPoolName).transform);
@@ -78,14 +81,14 @@ namespace Build.Game.Scripts.ECS.System
                 var resourceSpawnPosition = resourcesSpawnPoint + Vector3.one * Random.Range(-2f, 2f);
                 resourceSpawnPosition.y = 0;
             
-                CreateResources(resourceSpawnPosition);   
+                CreateStone(resourceSpawnPosition);   
             }
         }
 
         public void Run()
         {
-            if(_capsule != null)
-                LaunchCapsule(_capsule);
+            if(capsule != null)
+                LaunchCapsule(capsule);
 
             if (_lastSpawnTime <= _minValue)
             {
@@ -110,6 +113,8 @@ namespace Build.Game.Scripts.ECS.System
         private PlayerActor CreatePlayer()
         {
             var playerActor = Object.Instantiate(_playerInitData.Prefab, _playerSpawnPoint, Quaternion.identity);
+
+            PlayerTransform = playerActor.transform;
             
             var player = _world.NewEntity();
 
@@ -117,7 +122,7 @@ namespace Build.Game.Scripts.ECS.System
             inputEventComponent.PlayerInputController = playerActor.PlayerInputController;
             
             ref var playerComponent = ref player.Get<PlayerComponent>();
-            playerComponent.miningTool = playerActor.MiningToolActor;
+            playerComponent.MiningTool = playerActor.MiningToolActor;
             playerComponent.weapons = playerActor.Weapons;
             playerComponent.health = playerActor.Health;
 
@@ -138,6 +143,7 @@ namespace Build.Game.Scripts.ECS.System
         private EnemyActor CreateEnemy(PlayerActor target)
         {
             var enemyActor = Object.Instantiate(_enemyInitData.EnemyPrefab);
+            enemyActor.Construct(_score);
 
             var enemy = _world.NewEntity();
             
@@ -162,31 +168,32 @@ namespace Build.Game.Scripts.ECS.System
             return enemyActor;
         }
 
-        private void CreateResources(Vector3 atPosition)
+        private void CreateStone(Vector3 atPosition)
         {
-            var resourceActor = Object.Instantiate(_stoneData.StonePrefab, atPosition, Quaternion.identity);
+            var stoneActor = Object.Instantiate(_stoneInitData.StonePrefab, atPosition, Quaternion.identity);
+            stoneActor.Construct(_score);
 
             var resource = _world.NewEntity();
 
             ref var resourceComponent = ref resource.Get<ResourceComponent>();
-            resourceComponent.health = resourceActor.Health;
+            resourceComponent.health = stoneActor.Health;
 
             ref var animatedComponent = ref resource.Get<AnimatedComponent>();
-            animatedComponent.animator = resourceActor.Animator;
+            animatedComponent.animator = stoneActor.Animator;
         }
 
         private void SpawnEnemy()
         {
             foreach (var enemySpawnPoint in _enemySpawnPoints)
             {
-                EnemyActor enemy = CreateEnemy(_player);
-                
+                EnemyActor enemy = CreateEnemy(player);
+
                 var enemySpawnPosition = enemySpawnPoint + Vector3.one * Random.Range(-2f, 2f);
                 enemySpawnPosition.y = 0f;
 
                 enemy.transform.position = enemySpawnPosition;
 
-                foreach (Weapon weapon in _player.Weapons)
+                foreach (Weapon weapon in player.Weapons)
                 {
                     weapon.Detector.AddEnemy(enemy);
                 }
@@ -200,7 +207,7 @@ namespace Build.Game.Scripts.ECS.System
 
             if (capsule.transform.position == _playerSpawnPoint)
             {
-                _player.gameObject.SetActive(true);
+                player.gameObject.SetActive(true);
                 capsule.Destroy();
             }
         }

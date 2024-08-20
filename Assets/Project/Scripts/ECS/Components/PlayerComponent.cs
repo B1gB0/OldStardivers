@@ -8,6 +8,6 @@ namespace Build.Game.Scripts.ECS.Components
     {
         public Health health;
         public List<Weapon> weapons;
-        public MiningToolActor miningTool;
+        public MiningToolActor MiningTool;
     }
 }

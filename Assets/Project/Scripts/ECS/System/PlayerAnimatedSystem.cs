@@ -27,11 +27,11 @@ namespace Build.Game.Scripts.ECS.System
 
                 animatedComponent.animator.SetBool(Move, movableComponent.isMoving);
 
-                if (playerComponent.miningTool.IsMining && movableComponent.isMoving)
+                if (playerComponent.MiningTool.IsMining && movableComponent.isMoving)
                 {
                     SetBlendTreeHitAndMoveAnimation(animatedComponent, _startHitValue);
                 }
-                else if (playerComponent.miningTool.IsMining)
+                else if (playerComponent.MiningTool.IsMining)
                 {
                     SetHitAnimation(animatedComponent, true);
                 }

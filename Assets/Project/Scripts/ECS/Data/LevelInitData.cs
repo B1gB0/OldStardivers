@@ -4,7 +4,7 @@ using Build.Game.Scripts.ECS.EntityActors;
 using Project.Scripts.ECS.Data;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "InitData/LevelData")]
 public class LevelInitData : InitData
 {
     //[field: SerializeField] public int Index { get; private set; }

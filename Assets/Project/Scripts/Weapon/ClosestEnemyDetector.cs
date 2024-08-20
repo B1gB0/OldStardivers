@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ClosestEnemyDetector : MonoBehaviour
 {
-    public readonly List<EnemyActor> Enemies = new List<EnemyActor>();
+    public readonly List<EnemyActor> Enemies = new ();
 
     private float _currentDistanceOfClosestEnemy;
     private float _minValue = 0f;

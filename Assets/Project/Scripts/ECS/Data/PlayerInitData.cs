@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Build.Game.Scripts.ECS.Data
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(menuName = "InitData/PlayerData")]
     public class PlayerInitData : InitData
     {
         [field: SerializeField] public PlayerActor Prefab { get; private set; }

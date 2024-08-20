@@ -1,11 +1,10 @@
 ﻿using Build.Game.Scripts.ECS.Data;
 using Build.Game.Scripts.ECS.Data.SO;
-using Build.Game.Scripts.ECS.EntityActors;
 using Build.Game.Scripts.ECS.System;
 using Build.Game.Scripts.Game.Gameplay.GameplayRoot;
 using Cinemachine;
 using Leopotam.Ecs;
-using Project.Scripts.MVP.Presenters;
+using Project.Scripts.Score;
 using Project.Scripts.UI;
 using R3;
 using Source.Game.Scripts;
@@ -15,9 +14,9 @@ namespace Build.Game.Scripts.Game.Gameplay
 {
     public class GameplayEntryPoint : MonoBehaviour
     {
-        private readonly DataFactory _dataFactory = new DataFactory();
+        private readonly DataFactory _dataFactory = new ();
 
-        [SerializeField] private BarsFactory _barsFactory;
+        [SerializeField] private ViewFactory viewFactory;
         [SerializeField] private CinemachineVirtualCamera _mainCamera;
         [SerializeField] private UIGameplayRootBinder _sceneUIRootPrefab;
 
@@ -31,9 +30,10 @@ namespace Build.Game.Scripts.Game.Gameplay
 
         private EcsWorld _world;
         private EcsSystems _systems;
-
-        //private HealthBarPresenter _healthBarPresenter;
+        
         private HealthBar _healthBar;
+        private ProgressRadialBar _progressBar;
+        private ScoreView _scoreView;
 
         private void Start()
         {
@@ -43,13 +43,13 @@ namespace Build.Game.Scripts.Game.Gameplay
             _stoneData = _dataFactory.CreateStoneData();
             _capsuleData = _dataFactory.CreateCapsuleData();
 
+            Score score = new Score();
+
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
 
-            _systems.Inject(_sceneUIRootPrefab);
-
-            _systems.Add(_gameInitSystem = new GameInitSystem(_playerData, _enemyData, _stoneData, _capsuleData,
-                _levelData.EnemySpawnPoints, _levelData.PlayerSpawnPoint, _levelData.ResourcesSpawnPoints));
+            _systems.Inject(score);
+            _systems.Add(_gameInitSystem = new GameInitSystem(_playerData, _enemyData, _stoneData, _capsuleData, _levelData));
             _systems.Add(new PlayerInputSystem());
             _systems.Add(new PlayerMoveSystem());
             _systems.Add(new MainCameraSystem(_mainCamera));
@@ -58,13 +58,12 @@ namespace Build.Game.Scripts.Game.Gameplay
             _systems.Add(new EnemyAnimatedSystem());
             _systems.Add(new EnemyAttackSystem());
             _systems.Add(new ResourcesAnimatedSystem());
-
             _systems.Init();
             
-            //_healthBarPresenter = new HealthBarPresenter(_sceneUIRootPrefab.HealthBar, GameObject.FindObjectOfType<PlayerActor>().Health);
-            //_healthBarPresenter.Enable();
+            _progressBar = viewFactory.CreateProgressBar(score, _gameInitSystem.PlayerTransform);
+            _healthBar = viewFactory.CreateHealthBar(_gameInitSystem.PlayerHealth);
             
-            _healthBar = _barsFactory.CreateHealthBar(_gameInitSystem.PlayerHealth);
+            _progressBar.Show();
             _healthBar.Show();
         }
 
@@ -79,7 +78,6 @@ namespace Build.Game.Scripts.Game.Gameplay
             _healthBar.transform.SetParent(uiScene.transform);
             uiRoot.AttachSceneUI(uiScene.gameObject);
 
-
             var exitSceneSignalSubject = new Subject<Unit>();
             uiScene.Bind(exitSceneSignalSubject);
 
@@ -92,7 +90,6 @@ namespace Build.Game.Scripts.Game.Gameplay
 
         private void OnDestroy()
         {
-            //_healthBarPresenter?.Disable();
             _systems?.Destroy();
             _world?.Destroy();
         }
