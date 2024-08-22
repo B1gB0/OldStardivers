@@ -582,8 +582,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122e36c6c1624a07b05ab00878269bd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewFactory: {fileID: 882966743}
-  _mainCamera: {fileID: 624840162}
+  _viewFactory: {fileID: 882966743}
+  _cinemachineVirtualCamera: {fileID: 624840162}
   _sceneUIRootPrefab: {fileID: 7126382617908381610, guid: 06db735353458e540a515312bcb50596, type: 3}
 --- !u!4 &882966742
 Transform:
@@ -614,7 +614,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBarTemplate: {fileID: 1253890320212022793, guid: 06ade37752b155b49abec3d2b141bc1b, type: 3}
   _scoreViewTemplate: {fileID: 2018483934187359416, guid: e648f02bdc39e434894f64415fb9d38f, type: 3}
-  _progressRadialBarTemplate: {fileID: 2002598713392383236, guid: 73e514778f9933f4f8513b23b94d399f, type: 3}
+  _damageTextViewTemplate: {fileID: 4202921636403678774, guid: b8b82ebba3f127e4bb3ce6e6696433b9, type: 3}
+  _progressRadialBarCanvasTemplate: {fileID: 2002598713392383236, guid: 73e514778f9933f4f8513b23b94d399f, type: 3}
+  _progressRadialBarPlaneTemplate: {fileID: 1512919815294232957, guid: 289d2f21a6b011a4188945a3b1bfae94, type: 3}
 --- !u!4 &921315243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4798538837464128, guid: fa0beb7adbbc3cf4c895d8b818eaba5f, type: 3}

@@ -1,13 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Build.Game.Scripts.ECS.Components;
 using Build.Game.Scripts.ECS.EntityActors;
 using Project.Game.Scripts;
 using UnityEngine;
 
-public class AssaultRifle : Weapon
+public class Gun : Weapon
 {
     private const string ObjectPoolBulletName = "PoolBullets";
     private const string ObjectPoolSoundsOfShotsName = "PoolAssaultRifleSoundsOfShots";
@@ -40,7 +35,7 @@ public class AssaultRifle : Weapon
         _poolBullets.AutoExpand = _isAutoExpandPool;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         closestEnemy = Detector.СlosestEnemy;
         
@@ -72,6 +67,6 @@ public class AssaultRifle : Weapon
             _lastShotTime = _delay;
         }
 
-        _lastShotTime -= Time.deltaTime;
+        _lastShotTime -= Time.fixedDeltaTime;
     }
 }

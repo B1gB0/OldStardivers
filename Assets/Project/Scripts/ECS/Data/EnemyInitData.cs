@@ -1,5 +1,7 @@
 ﻿using Build.Game.Scripts.ECS.EntityActors;
 using Project.Scripts.ECS.Data;
+using Project.Scripts.UI;
+using TMPro;
 using UnityEngine;
 
 namespace Build.Game.Scripts.ECS.Data.SO

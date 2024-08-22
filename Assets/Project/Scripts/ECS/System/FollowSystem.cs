@@ -18,7 +18,6 @@ namespace Build.Game.Scripts.ECS.System
 
                 if (followComponent.target == null)
                     continue;
-                
 
                 var direction = (followComponent.target.transform.position - movableComponent.transform.position).normalized;
                 var distance = Vector3.Distance(followComponent.target.transform.position, movableComponent.transform.position);

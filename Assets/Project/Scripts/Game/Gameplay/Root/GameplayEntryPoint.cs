@@ -1,4 +1,5 @@
-﻿using Build.Game.Scripts.ECS.Data;
+﻿using System;
+using Build.Game.Scripts.ECS.Data;
 using Build.Game.Scripts.ECS.Data.SO;
 using Build.Game.Scripts.ECS.System;
 using Build.Game.Scripts.Game.Gameplay.GameplayRoot;
@@ -9,6 +10,7 @@ using Project.Scripts.UI;
 using R3;
 using Source.Game.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Build.Game.Scripts.Game.Gameplay
 {
@@ -16,8 +18,8 @@ namespace Build.Game.Scripts.Game.Gameplay
     {
         private readonly DataFactory _dataFactory = new ();
 
-        [SerializeField] private ViewFactory viewFactory;
-        [SerializeField] private CinemachineVirtualCamera _mainCamera;
+        [SerializeField] private ViewFactory _viewFactory;
+        [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
         [SerializeField] private UIGameplayRootBinder _sceneUIRootPrefab;
 
         private PlayerInitData _playerData;
@@ -29,11 +31,11 @@ namespace Build.Game.Scripts.Game.Gameplay
         private GameInitSystem _gameInitSystem;
 
         private EcsWorld _world;
-        private EcsSystems _systems;
+        private EcsSystems _updateSystems;
+        private EcsSystems _fixedUpdateSystems;
         
         private HealthBar _healthBar;
         private ProgressRadialBar _progressBar;
-        private ScoreView _scoreView;
 
         private void Start()
         {
@@ -42,36 +44,57 @@ namespace Build.Game.Scripts.Game.Gameplay
             _enemyData = _dataFactory.CreateEnemyData();
             _stoneData = _dataFactory.CreateStoneData();
             _capsuleData = _dataFactory.CreateCapsuleData();
+            
+            _world = new EcsWorld();
+            _updateSystems = new EcsSystems(_world);
+            _fixedUpdateSystems = new EcsSystems(_world);
 
+            FloatingDamageTextView damageTextView = _viewFactory.CreateDamageTextView();
+            FloatingDamageTextPresenter damageTextPresenter = new FloatingDamageTextPresenter(damageTextView); ;
+            
             Score score = new Score();
 
-            _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
+            _updateSystems.Inject(score);
+            _updateSystems.Inject(damageTextPresenter);
+            _updateSystems.Add(_gameInitSystem = new GameInitSystem(_playerData, _enemyData, _stoneData, _capsuleData, _levelData));
+            _updateSystems.Add(new PlayerInputSystem());
+            _updateSystems.Add(new MainCameraSystem(_cinemachineVirtualCamera));
+            _updateSystems.Add(new PlayerAnimatedSystem());
+            _updateSystems.Add(new EnemyAnimatedSystem());
+            _updateSystems.Add(new EnemyAttackSystem());
+            _updateSystems.Add(new ResourcesAnimatedSystem());
+            _updateSystems.Init();
+            
+            _fixedUpdateSystems.Add(new PlayerMoveSystem());
+            _fixedUpdateSystems.Add(new FollowSystem());
+            _fixedUpdateSystems.Init();
+            
+            _healthBar = _viewFactory.CreateHealthBar(_gameInitSystem.PlayerHealth);
+            _progressBar = _viewFactory.CreateProgressBar(score, _gameInitSystem.PlayerTransform);
+            
+            _gameInitSystem.PlayerIsLanded += _healthBar.Show;
+            _gameInitSystem.PlayerIsLanded += _progressBar.Show;
+        }
 
-            _systems.Inject(score);
-            _systems.Add(_gameInitSystem = new GameInitSystem(_playerData, _enemyData, _stoneData, _capsuleData, _levelData));
-            _systems.Add(new PlayerInputSystem());
-            _systems.Add(new PlayerMoveSystem());
-            _systems.Add(new MainCameraSystem(_mainCamera));
-            _systems.Add(new FollowSystem());
-            _systems.Add(new PlayerAnimatedSystem());
-            _systems.Add(new EnemyAnimatedSystem());
-            _systems.Add(new EnemyAttackSystem());
-            _systems.Add(new ResourcesAnimatedSystem());
-            _systems.Init();
-            
-            _progressBar = viewFactory.CreateProgressBar(score, _gameInitSystem.PlayerTransform);
-            _healthBar = viewFactory.CreateHealthBar(_gameInitSystem.PlayerHealth);
-            
-            _progressBar.Show();
-            _healthBar.Show();
+        private void OnDisable()
+        {
+            if (_gameInitSystem != null)
+            {
+                _gameInitSystem.PlayerIsLanded -= _healthBar.Show;
+                _gameInitSystem.PlayerIsLanded -= _progressBar.Show;
+            }
         }
 
         private void Update()
         {
-            _systems?.Run();
+            _updateSystems?.Run();
         }
-        
+
+        private void FixedUpdate()
+        {
+            _fixedUpdateSystems?.Run();
+        }
+
         public Observable<GameplayExitParameters> Run(UIRootView uiRoot, GameplayEnterParameters enterParameters)
         {
             UIGameplayRootBinder uiScene = Instantiate(_sceneUIRootPrefab);
@@ -90,7 +113,7 @@ namespace Build.Game.Scripts.Game.Gameplay
 
         private void OnDestroy()
         {
-            _systems?.Destroy();
+            _updateSystems?.Destroy();
             _world?.Destroy();
         }
     }

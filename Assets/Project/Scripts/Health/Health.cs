@@ -16,6 +16,9 @@ namespace Build.Game.Scripts
         private float _recoveryRate = 10f;
         
         public event Action Die;
+
+        public event Action<float, Transform> IsDamaged;
+        
         public event Action<float, float, float> HealthChanged;
 
         private float _currentHealth;
@@ -38,6 +41,8 @@ namespace Build.Game.Scripts
 
         public void TakeDamage(float damage)
         {
+            IsDamaged?.Invoke(damage, transform);
+            
             _hitEffectRef.transform.position = _hitPoint.position;
             _hitEffectRef.Play();
             

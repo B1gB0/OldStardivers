@@ -712,6 +712,7 @@ MonoBehaviour:
   <Health>k__BackingField: {fileID: 2171862078909410446}
   <Animator>k__BackingField: {fileID: 824788631375992023}
   <Rigidbody>k__BackingField: {fileID: -3084844747911513566}
+  <_damageText>k__BackingField: {fileID: 5746975124449223764, guid: b8b82ebba3f127e4bb3ce6e6696433b9, type: 3}
 --- !u!4 &824788631366712119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: a39d5c20a054b6b4b98fc4b3efc11358, type: 3}

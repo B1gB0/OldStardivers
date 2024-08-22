@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using Build.Game.Scripts.ECS.Components;
 using Build.Game.Scripts.ECS.Data;
 using Build.Game.Scripts.ECS.Data.SO;
 using Build.Game.Scripts.ECS.EntityActors;
-using DI;
 using Leopotam.Ecs;
 using Project.Scripts.Score;
+using Project.Scripts.UI;
 using UnityEngine;
-using Zenject;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Build.Game.Scripts.ECS.System
 {
@@ -42,10 +43,13 @@ namespace Build.Game.Scripts.ECS.System
         private bool _isAutoExpand = true;
 
         private Score _score;
-        
+        private FloatingDamageTextPresenter _damageTextPresenter;
+
         public Health PlayerHealth { get; private set; }
         
         public Transform PlayerTransform { get; private set; }
+
+        public event Action PlayerIsLanded;
 
         public GameInitSystem(PlayerInitData playerData, EnemyInitData enemyData, StoneInitData stoneInitData,
             CapsuleInitData capsuleData, LevelInitData levelData)
@@ -143,7 +147,7 @@ namespace Build.Game.Scripts.ECS.System
         private EnemyActor CreateEnemy(PlayerActor target)
         {
             var enemyActor = Object.Instantiate(_enemyInitData.EnemyPrefab);
-            enemyActor.Construct(_score);
+            enemyActor.Construct(_score, _damageTextPresenter);
 
             var enemy = _world.NewEntity();
             
@@ -207,6 +211,7 @@ namespace Build.Game.Scripts.ECS.System
 
             if (capsule.transform.position == _playerSpawnPoint)
             {
+                PlayerIsLanded?.Invoke();
                 player.gameObject.SetActive(true);
                 capsule.Destroy();
             }

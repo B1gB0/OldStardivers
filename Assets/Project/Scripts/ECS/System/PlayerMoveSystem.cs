@@ -32,7 +32,7 @@ namespace Build.Game.Scripts.ECS.System
                     Quaternion toRotation = Quaternion.LookRotation(moveDirection);
                    
                     rigidbody.rotation = Quaternion.RotateTowards(rigidbody.rotation, toRotation, 
-                        movableComponent.rotationSpeed * Time.deltaTime);
+                        movableComponent.rotationSpeed * Time.fixedDeltaTime);
                 }
 
                 movableComponent.isMoving = playerInputController.MoveDirection.sqrMagnitude > MinMagnitude;

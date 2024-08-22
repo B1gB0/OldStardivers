@@ -203,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 9133455839186376225, guid: 6cee5fb050d0d2f4697797421f85dc91, type: 3}
     - target: {fileID: 5775893173614726368, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: m_Name
-      value: AssaultRifle
+      value: Gun
       objectReference: {fileID: 0}
     - target: {fileID: 8226878689295201277, guid: e7965cb5f3b6b49439772edd4131b2b0, type: 3}
       propertyPath: soundPrefab

@@ -1,7 +1,6 @@
-﻿using System;
-using Project.Scripts.Score;
+﻿using Project.Scripts.Score;
+using Project.Scripts.UI;
 using UnityEngine;
-using Zenject;
 
 namespace Build.Game.Scripts.ECS.EntityActors
 {
@@ -12,12 +11,15 @@ namespace Build.Game.Scripts.ECS.EntityActors
         [field: SerializeField] public Animator Animator { get; private set; }
 
         [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
-        
-        private Score _score;
 
-        public void Construct(Score score)
+        private Score _score;
+        private FloatingDamageTextPresenter _damageTextPresenter;
+
+        public void Construct(Score score, FloatingDamageTextPresenter damageTextPresenter)
         {
             _score = score;
+            _damageTextPresenter = damageTextPresenter;
+            Health.IsDamaged += _damageTextPresenter.OnChangedDamageText;
         }
 
         private void OnEnable()
@@ -29,16 +31,17 @@ namespace Build.Game.Scripts.ECS.EntityActors
         {
             Health.Die -= Die;
         }
-
-        private void Die()
-        {
-            _score.OnKill(this);
-            gameObject.SetActive(false);
-        }
-
+        
         public override void Accept(IActorVisitor visitor)
         {
             visitor.Visit(this);
+        }
+
+        private void Die()
+        {
+            Health.IsDamaged -= _damageTextPresenter.OnChangedDamageText;
+            _score.OnKill(this);
+            gameObject.SetActive(false);
         }
     }
 }
