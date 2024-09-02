@@ -203,12 +203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc124199128e95c42adf81b0f90a24d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _card: {fileID: 11400000, guid: 4432f5e02a3fc96479aaa76be9b71fe8, type: 2}
   _icon: {fileID: 6987568342442462740}
   _label: {fileID: 5766872909112883693}
   _description: {fileID: 1934527329068242443}
   _level: {fileID: 5176612850886475253}
   _characteristics: {fileID: 2557327271252485492}
+  _cardViewButton: {fileID: 8180825396603781250}
 --- !u!1 &2948020438345117704
 GameObject:
   m_ObjectHideFlags: 0

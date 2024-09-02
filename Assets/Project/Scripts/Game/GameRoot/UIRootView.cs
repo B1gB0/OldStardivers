@@ -1,20 +1,22 @@
-﻿using System;
-using Project.Scripts.UI;
+﻿using Project.Scripts.UI;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace Source.Game.Scripts
 {
     public class UIRootView : MonoBehaviour
     {
-        [SerializeField] private GameObject _loadingScreen;
+        private readonly PauseService _pauseService = new ();
+        
         [SerializeField] private Transform _uiSceneContainer;
 
+        [SerializeField] private LoadingPanel _loadingPanel;
         [SerializeField] private SettingsPanel _settingsPanel;
-        
+
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _backToSceneButton;
+
+        public PauseService PauseService => _pauseService;
 
         private void Awake()
         {
@@ -23,6 +25,7 @@ namespace Source.Game.Scripts
 
         private void Start()
         {
+            _settingsPanel.GetPauseService(_pauseService);
             _settingsPanel.SetValuesVolume();
             _settingsPanel.Hide();
         }
@@ -40,25 +43,21 @@ namespace Source.Game.Scripts
             _settingsButton.onClick.RemoveListener(HideUIScene);
             _backToSceneButton.onClick.RemoveListener(ShowUIScene);
         }
-
-        public void ShowUIScene()
-        {
-            _uiSceneContainer.gameObject.SetActive(true);
-        }
-
-        public void HideUIScene()
-        {
-            _uiSceneContainer.gameObject.SetActive(false);
-        }
-
+        
         public void ShowLoadingScreen()
         {
-            _loadingScreen.SetActive(true);
+            _loadingPanel.Show();
+            _loadingPanel.RotateLoadingWheel();
+        }
+
+        public void ShowLoadingProgress(float progress)
+        {
+            _loadingPanel.SetProgressText(progress);
         }
         
         public void HideLoadingScreen()
         {
-            _loadingScreen.SetActive(false);
+            _loadingPanel.Hide();
         }
 
         public void AttachSceneUI(GameObject sceneUI)
@@ -66,6 +65,16 @@ namespace Source.Game.Scripts
             ClearSceneUI();
             
             sceneUI.transform.SetParent(_uiSceneContainer, false);
+        }
+
+        private void ShowUIScene()
+        {
+            _uiSceneContainer.gameObject.SetActive(true);
+        }
+
+        private void HideUIScene()
+        {
+            _uiSceneContainer.gameObject.SetActive(false);
         }
 
         private void ClearSceneUI()

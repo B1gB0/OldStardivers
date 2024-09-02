@@ -9,7 +9,8 @@ namespace Project.Scripts.UI
         [SerializeField] private HealthBar _healthBarTemplate;
         [SerializeField] private FloatingDamageTextView _damageTextViewTemplate;
         [SerializeField] private ProgressRadialBar _progressRadialBarPlaneTemplate;
-    
+        [SerializeField] private LevelUpPanel _levelUpPanelTemplate;
+
         public HealthBar CreateHealthBar(Health health)
         {
             HealthBar healthBar = Instantiate(_healthBarTemplate);
@@ -18,10 +19,10 @@ namespace Project.Scripts.UI
             return healthBar;
         }
 
-        public ProgressRadialBar CreateProgressBar(Score.Score score, Transform target)
+        public ProgressRadialBar CreateProgressBar(ExperiencePoints experiencePoints, Transform target)
         {
             ProgressRadialBar progressRadialBar = Instantiate(_progressRadialBarPlaneTemplate);
-            progressRadialBar.Construct(score, target);
+            progressRadialBar.Construct(experiencePoints, target);
 
             return progressRadialBar;
         }
@@ -30,6 +31,12 @@ namespace Project.Scripts.UI
         {
             FloatingDamageTextView damageTextView = Instantiate(_damageTextViewTemplate);
             return damageTextView;
+        }
+
+        public LevelUpPanel CreateLevelUpPanel()
+        {
+            LevelUpPanel levelUpPanel = Instantiate(_levelUpPanelTemplate);
+            return levelUpPanel;
         }
     }
 }

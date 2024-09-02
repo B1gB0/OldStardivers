@@ -16,6 +16,9 @@ namespace Build.Game.Scripts.ECS.System
     public class GameInitSystem : IEcsInitSystem, IEcsRunSystem
     {
         private const string EnemyPoolName = "EnemyPool";
+        private const float CapsuleHeight = 20f;
+        private const float MinValue = 0f;
+        private const float Delay = 10f;
         
         private readonly EcsWorld _world;
 
@@ -29,25 +32,24 @@ namespace Build.Game.Scripts.ECS.System
         private readonly Vector3 _playerSpawnPoint;
 
         private Vector3 _capsuleSpawnPoint;
-        private float _capsuleHeight = 20f;
-        
+
         private PlayerActor player;
         private EnemyActor enemy;
         private CapsuleActor capsule;
 
         private float _lastSpawnTime;
-        private float _minValue = 0f;
-        private float _delay = 10f;
 
         private ObjectPool<EnemyActor> _enemyPool;
         private bool _isAutoExpand = true;
 
-        private Score _score;
-        private FloatingDamageTextPresenter _damageTextPresenter;
+        private ExperiencePoints experiencePoints;
+        private FloatingDamageTextService _damageTextService;
 
         public Health PlayerHealth { get; private set; }
         
         public Transform PlayerTransform { get; private set; }
+
+        public ClosestEnemyDetector EnemyDetector => player.Detector;
 
         public event Action PlayerIsLanded;
 
@@ -66,7 +68,7 @@ namespace Build.Game.Scripts.ECS.System
 
         public void Init()
         {
-            _lastSpawnTime = _delay;
+            _lastSpawnTime = Delay;
             
             player = CreatePlayer();
             capsule = CreateCapsule();
@@ -94,11 +96,11 @@ namespace Build.Game.Scripts.ECS.System
             if(capsule != null)
                 LaunchCapsule(capsule);
 
-            if (_lastSpawnTime <= _minValue)
+            if (_lastSpawnTime <= MinValue)
             {
                 SpawnEnemy();
 
-                _lastSpawnTime = _delay;
+                _lastSpawnTime = Delay;
             }
 
             _lastSpawnTime -= Time.deltaTime;
@@ -107,7 +109,7 @@ namespace Build.Game.Scripts.ECS.System
         private CapsuleActor CreateCapsule()
         {
             _capsuleSpawnPoint = _playerSpawnPoint;
-            _capsuleSpawnPoint.y += _capsuleHeight;
+            _capsuleSpawnPoint.y += CapsuleHeight;
             
             var capsuleActor = Object.Instantiate(_capsuleInitData.Prefab, _capsuleSpawnPoint, Quaternion.identity);
 
@@ -147,7 +149,7 @@ namespace Build.Game.Scripts.ECS.System
         private EnemyActor CreateEnemy(PlayerActor target)
         {
             var enemyActor = Object.Instantiate(_enemyInitData.EnemyPrefab);
-            enemyActor.Construct(_score, _damageTextPresenter);
+            enemyActor.Construct(experiencePoints, _damageTextService);
 
             var enemy = _world.NewEntity();
             
@@ -175,7 +177,7 @@ namespace Build.Game.Scripts.ECS.System
         private void CreateStone(Vector3 atPosition)
         {
             var stoneActor = Object.Instantiate(_stoneInitData.StonePrefab, atPosition, Quaternion.identity);
-            stoneActor.Construct(_score);
+            stoneActor.Construct(experiencePoints);
 
             var resource = _world.NewEntity();
 
@@ -196,11 +198,8 @@ namespace Build.Game.Scripts.ECS.System
                 enemySpawnPosition.y = 0f;
 
                 enemy.transform.position = enemySpawnPosition;
-
-                foreach (Weapon weapon in player.Weapons)
-                {
-                    weapon.Detector.AddEnemy(enemy);
-                }
+                
+                player.Detector.AddEnemy(enemy);
             }
         }
         

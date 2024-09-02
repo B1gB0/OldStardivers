@@ -8,8 +8,6 @@ using UnityEngine.UI;
 
 public class UIGameplayRootBinder : MonoBehaviour
 {
-    [field: SerializeField] public HealthBar HealthBar { get; private set; }
-    
     [field: SerializeField] public Joystick Joystick { get; private set; }
 
     private void Awake()

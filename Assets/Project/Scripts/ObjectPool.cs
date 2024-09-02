@@ -16,16 +16,16 @@ public class ObjectPool <T> where T : MonoBehaviour
 
     public ObjectPool(T prefab, int count)
     {
-        this.Prefab = prefab;
-        this.Container = null;
-        this.CrateObjectPool(count);
+        Prefab = prefab;
+        Container = null;
+        CrateObjectPool(count);
     }
 
     public ObjectPool(T prefab, int count, Transform container)
     {
-        this.Prefab = prefab;
-        this.Container = container;
-        this.CrateObjectPool(count);
+        Prefab = prefab;
+        Container = container;
+        CrateObjectPool(count);
     }
 
     public bool HasFreeElement(out T element)
@@ -48,11 +48,11 @@ public class ObjectPool <T> where T : MonoBehaviour
 
     public T GetFreeElement()
     {
-        if (this.HasFreeElement(out var element))
+        if (HasFreeElement(out var element))
             return element;
 
-        if (this.AutoExpand)
-            return this.CreateObject(true);
+        if (AutoExpand)
+            return CreateObject(true);
         
         throw new Exception($"There is no free elements in pool of type {typeof(T)}");
     }
@@ -63,7 +63,7 @@ public class ObjectPool <T> where T : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            this.CreateObject();
+            CreateObject();
         }
     }
 

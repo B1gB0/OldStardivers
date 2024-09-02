@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Build.Game.Scripts.ECS.Data;
 using Build.Game.Scripts.ECS.Data.SO;
 using Project.Scripts.ECS.Data;
+using TMPro;
 using UnityEngine;
 
 public class DataFactory
@@ -12,6 +13,7 @@ public class DataFactory
     private readonly string _enemyData = "SO/EnemyData";
     private readonly string _stoneData = "SO/StoneData";
     private readonly string _capsuleData = "SO/CapsuleData";
+    private readonly string _playerProgression = "SO/PlayerProgression";
     
     public PlayerInitData CreatePlayerData()
     {
@@ -36,5 +38,10 @@ public class DataFactory
     public CapsuleInitData CreateCapsuleData()
     {
         return Resources.Load<CapsuleInitData>(_capsuleData);
+    }
+
+    public PlayerProgressionInitData CreatePlayerProgression()
+    {
+        return Resources.Load<PlayerProgressionInitData>(_playerProgression);
     }
 }

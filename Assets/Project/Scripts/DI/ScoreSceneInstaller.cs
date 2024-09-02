@@ -9,13 +9,13 @@ public class ScoreSceneInstaller : MonoInstaller
     [SerializeField] private EnemyActor _enemyActor;
     [SerializeField] private StoneActor _stoneActor;
     
-    [SerializeField] private Score _score;
+    [SerializeField] private ExperiencePoints experiencePoints;
     
     public override void InstallBindings()
     {
         Container.BindFactory<EnemyActor, EnemyFactory>().FromComponentInNewPrefab(_enemyActor);
         Container.BindFactory<StoneActor, StoneFactory>().FromComponentInNewPrefab(_stoneActor);
         
-        Container.Bind<Score>().FromInstance(_score).AsSingle();
+        Container.Bind<ExperiencePoints>().FromInstance(experiencePoints).AsSingle();
     }
 }

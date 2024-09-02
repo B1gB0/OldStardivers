@@ -11,11 +11,11 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
         [field: SerializeField] public Animator Animator { get; private set; }
 
-        private Score _score;
+        private ExperiencePoints experiencePoints;
 
-        public void Construct(Score score)
+        public void Construct(ExperiencePoints experiencePoints)
         {
-            _score = score;
+            this.experiencePoints = experiencePoints;
         }
 
         private void OnEnable()
@@ -30,7 +30,7 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
         private void Die()
         {
-            _score.OnKill(this);
+            experiencePoints.OnKill(this);
             gameObject.SetActive(false);
         }
 

@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Project.Scripts.Cards.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour
+public class CardView : MonoBehaviour, IView
 {
-    [SerializeField] private Card _card;
-
     [SerializeField] private Image _icon;
     
     [SerializeField] private Text _label;
@@ -16,12 +12,53 @@ public class CardView : MonoBehaviour
     [SerializeField] private Text _level;
     [SerializeField] private Text _characteristics;
 
-    private void Start()
+    [SerializeField] private Button _cardViewButton;
+    
+    private Card _card;
+
+    public event Action<Card, CardView> GetImprovementButtonClicked;
+
+    private void OnEnable()
+    {
+        SetData();
+        _cardViewButton.onClick.AddListener(OnButtonClicked);
+    }
+
+    private void OnDisable()
+    {
+        _cardViewButton.onClick.RemoveListener(OnButtonClicked);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    
+    public void GetCard(Card card)
+    {
+        _card = card;
+    }
+
+    private void SetData()
     {
         _icon.sprite = _card.Icon;
         _label.text = _card.Label;
         _description.text = _card.Description;
         _level.text = _card.Level;
-        _characteristics.text = _card.Characteristics;
+        
+        if(_card is ImprovementCard improvementCard)
+            _characteristics.text = improvementCard.Value * 10 + "% " + improvementCard.TypeCharacteristics;
+        else if (_card is WeaponCard weaponCard)
+            _characteristics.text = weaponCard.Characteristics;
+    }
+
+    private void OnButtonClicked()
+    {
+        GetImprovementButtonClicked?.Invoke(_card, this);
     }
 }

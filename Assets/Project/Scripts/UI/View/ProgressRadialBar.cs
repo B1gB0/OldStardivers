@@ -1,25 +1,29 @@
 ﻿using System;
 using Cinemachine;
+using Project.Scripts.Score;
 using UnityEngine;
 
 namespace Project.Scripts.UI
 {
     public class ProgressRadialBar : RadialBar
     {
-        private Score.Score _score;
+        private readonly float _startValueLevel = 0f;
+        private readonly float _height = 0.02f;
+        private readonly int _stepLevel = 1;
+        
+        private ExperiencePoints _experiencePoints;
         private Transform _target;
 
-        private float _height = 0.02f;
-
-        public void Construct(Score.Score score, Transform target)
+        public void Construct(ExperiencePoints experiencePoints, Transform target)
         {
-            _score = score;
+            _experiencePoints = experiencePoints;
             _target = target;
         }
 
         private void OnEnable()
         {
-            _score.ValueChanged += OnChangedValue;
+            _experiencePoints.ValueIsChanged += OnChangeValue;
+            _experiencePoints.LevelIsUpgraded += UpgradeLevel;
         }
 
         private void Update()
@@ -29,12 +33,17 @@ namespace Project.Scripts.UI
 
         private void OnDisable()
         {
-            _score.ValueChanged -= OnChangedValue;
+            _experiencePoints.ValueIsChanged -= OnChangeValue;
+            _experiencePoints.LevelIsUpgraded -= UpgradeLevel;
         }
 
-        private void OnChangedValue(int value, int maxValue)
+        private void UpgradeLevel(int level, float targetValue, float maxValue)
         {
-            SetValue(value, maxValue);
+            level += _stepLevel;
+            text.text = "LVL " + level;
+            
+            UpdateLevelValue(_startValueLevel, maxValue);
+            OnChangeValue(_startValueLevel, targetValue, maxValue);
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿using System;
-using Build.Game.Scripts.ECS.Data;
+﻿using Build.Game.Scripts.ECS.Data;
 using Build.Game.Scripts.ECS.Data.SO;
 using Build.Game.Scripts.ECS.System;
 using Build.Game.Scripts.Game.Gameplay.GameplayRoot;
 using Cinemachine;
 using Leopotam.Ecs;
+using Project.Game.Scripts;
+using Project.Scripts.ECS.Data;
 using Project.Scripts.Score;
 using Project.Scripts.UI;
 using R3;
 using Source.Game.Scripts;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Build.Game.Scripts.Game.Gameplay
 {
@@ -18,15 +18,17 @@ namespace Build.Game.Scripts.Game.Gameplay
     {
         private readonly DataFactory _dataFactory = new ();
 
+        [SerializeField] private WeaponFactory _weaponFactory;
         [SerializeField] private ViewFactory _viewFactory;
         [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
         [SerializeField] private UIGameplayRootBinder _sceneUIRootPrefab;
-
+        
         private PlayerInitData _playerData;
         private LevelInitData _levelData;
         private EnemyInitData _enemyData;
         private StoneInitData _stoneData;
         private CapsuleInitData _capsuleData;
+        private PlayerProgressionInitData _playerProgressionData;
 
         private GameInitSystem _gameInitSystem;
 
@@ -35,8 +37,12 @@ namespace Build.Game.Scripts.Game.Gameplay
         private EcsSystems _fixedUpdateSystems;
         
         private HealthBar _healthBar;
+        private ExperiencePoints _experiencePoints;
         private ProgressRadialBar _progressBar;
+        private LevelUpPanel _levelUpPanel;
 
+        private WeaponHolder _weaponHolder = new ();
+        
         private void Start()
         {
             _playerData = _dataFactory.CreatePlayerData();
@@ -44,18 +50,19 @@ namespace Build.Game.Scripts.Game.Gameplay
             _enemyData = _dataFactory.CreateEnemyData();
             _stoneData = _dataFactory.CreateStoneData();
             _capsuleData = _dataFactory.CreateCapsuleData();
+            _playerProgressionData = _dataFactory.CreatePlayerProgression();
             
             _world = new EcsWorld();
             _updateSystems = new EcsSystems(_world);
             _fixedUpdateSystems = new EcsSystems(_world);
 
             FloatingDamageTextView damageTextView = _viewFactory.CreateDamageTextView();
-            FloatingDamageTextPresenter damageTextPresenter = new FloatingDamageTextPresenter(damageTextView); ;
-            
-            Score score = new Score();
+            FloatingDamageTextService damageTextService = new FloatingDamageTextService(damageTextView);
 
-            _updateSystems.Inject(score);
-            _updateSystems.Inject(damageTextPresenter);
+            _experiencePoints = new ExperiencePoints(_playerProgressionData);
+
+            _updateSystems.Inject(_experiencePoints);
+            _updateSystems.Inject(damageTextService);
             _updateSystems.Add(_gameInitSystem = new GameInitSystem(_playerData, _enemyData, _stoneData, _capsuleData, _levelData));
             _updateSystems.Add(new PlayerInputSystem());
             _updateSystems.Add(new MainCameraSystem(_cinemachineVirtualCamera));
@@ -69,8 +76,14 @@ namespace Build.Game.Scripts.Game.Gameplay
             _fixedUpdateSystems.Add(new FollowSystem());
             _fixedUpdateSystems.Init();
             
+            _levelUpPanel = _viewFactory.CreateLevelUpPanel();
             _healthBar = _viewFactory.CreateHealthBar(_gameInitSystem.PlayerHealth);
-            _progressBar = _viewFactory.CreateProgressBar(score, _gameInitSystem.PlayerTransform);
+            _progressBar = _viewFactory.CreateProgressBar(_experiencePoints, _gameInitSystem.PlayerTransform);
+            
+            _weaponFactory.GetData(_gameInitSystem.EnemyDetector, _gameInitSystem.PlayerTransform, _weaponHolder);
+            _weaponFactory.CreateGun();
+
+            _experiencePoints.RewardIsShowed += _levelUpPanel.OnLevelUpgraded;
             
             _gameInitSystem.PlayerIsLanded += _healthBar.Show;
             _gameInitSystem.PlayerIsLanded += _progressBar.Show;
@@ -82,6 +95,11 @@ namespace Build.Game.Scripts.Game.Gameplay
             {
                 _gameInitSystem.PlayerIsLanded -= _healthBar.Show;
                 _gameInitSystem.PlayerIsLanded -= _progressBar.Show;
+            }
+
+            if (_experiencePoints != null)
+            {
+                _experiencePoints.RewardIsShowed -= _levelUpPanel.OnLevelUpgraded;
             }
         }
 
@@ -97,8 +115,11 @@ namespace Build.Game.Scripts.Game.Gameplay
 
         public Observable<GameplayExitParameters> Run(UIRootView uiRoot, GameplayEnterParameters enterParameters)
         {
+            _levelUpPanel.GetServices(uiRoot.PauseService, _weaponFactory, _weaponHolder);
+            
             UIGameplayRootBinder uiScene = Instantiate(_sceneUIRootPrefab);
             _healthBar.transform.SetParent(uiScene.transform);
+            _levelUpPanel.transform.SetParent(uiScene.transform);
             uiRoot.AttachSceneUI(uiScene.gameObject);
 
             var exitSceneSignalSubject = new Subject<Unit>();

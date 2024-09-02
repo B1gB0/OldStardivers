@@ -5,6 +5,7 @@ namespace Build.Game.Scripts.Game.Gameplay
     public class GameplayEnterParameters : SceneEnterParameters
     {
         public string SaveFileName { get; }
+        
         public int LevelNumber { get; }
         
         public GameplayEnterParameters( string saveFileName, int levelNumber) : base(Scenes.Gameplay)

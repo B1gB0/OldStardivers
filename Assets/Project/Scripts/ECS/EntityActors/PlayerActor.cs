@@ -16,6 +16,8 @@ namespace Build.Game.Scripts.ECS.EntityActors
         [field: SerializeField] public PlayerInputController PlayerInputController { get; private set; }
         
         [field: SerializeField] public MiningToolActor MiningToolActor { get; private set; }
+        
+        [field: SerializeField] public ClosestEnemyDetector Detector { get; private set; }
 
         [field: SerializeField] public List<Weapon> Weapons { get; private set; }
 

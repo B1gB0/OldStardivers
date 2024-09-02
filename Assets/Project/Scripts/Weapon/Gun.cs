@@ -1,3 +1,4 @@
+using System;
 using Build.Game.Scripts.ECS.EntityActors;
 using Project.Game.Scripts;
 using UnityEngine;
@@ -6,6 +7,7 @@ public class Gun : Weapon
 {
     private const string ObjectPoolBulletName = "PoolBullets";
     private const string ObjectPoolSoundsOfShotsName = "PoolAssaultRifleSoundsOfShots";
+    private const float MinValue = 0f;
     
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private AssaultRifleSoundOfShot soundPrefab;
@@ -13,17 +15,25 @@ public class Gun : Weapon
     [SerializeField] private int _countBullets;
 
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private float _rangeAttack;
-    [SerializeField] private float _delay;
     [SerializeField] private bool _isAutoExpandPool = false;
 
     private float _lastShotTime;
-    private float _minValue = 0f;
+    private Bullet _bullet;
 
+    private ClosestEnemyDetector _detector;
     private EnemyActor closestEnemy;
 
     private ObjectPool<Bullet> _poolBullets;
     private ObjectPool<AssaultRifleSoundOfShot> _poolSoundsOfShots;
+
+    public GunCharacteristics GunCharacteristics { get; private set; } = new();
+    
+    public event Action<float> DamageIsChanged;
+
+    public void Construct(ClosestEnemyDetector detector)
+    {
+        _detector = detector;
+    }
 
     private void Awake()
     {
@@ -37,11 +47,11 @@ public class Gun : Weapon
 
     private void FixedUpdate()
     {
-        closestEnemy = Detector.СlosestEnemy;
+        closestEnemy = _detector.СlosestEnemy;
         
         if (closestEnemy != null)
         {
-            if (Vector3.Distance(closestEnemy.transform.position, transform.position) <= _rangeAttack)
+            if (Vector3.Distance(closestEnemy.transform.position, transform.position) <= GunCharacteristics.RangeAttack)
             {
                 Shoot();
             }
@@ -50,9 +60,9 @@ public class Gun : Weapon
     
     public override void Shoot()
     {
-        if (_lastShotTime <= _minValue && closestEnemy.Health.Value > _minValue)
+        if (_lastShotTime <= MinValue && closestEnemy.Health.Value > MinValue)
         {
-            Bullet bullet = _poolBullets.GetFreeElement();
+            _bullet = _poolBullets.GetFreeElement();
 
             AssaultRifleSoundOfShot sound = _poolSoundsOfShots.GetFreeElement();
             
@@ -60,11 +70,12 @@ public class Gun : Weapon
             
             StartCoroutine(sound.OffSound());
 
-            bullet.transform.position = _shootPoint.position;
+            _bullet.transform.position = _shootPoint.position;
 
-            bullet.SetDirection(closestEnemy.transform);
+            _bullet.SetDirection(closestEnemy.transform);
+            _bullet.SetCharacteristics(GunCharacteristics.Damage, GunCharacteristics.BulletSpeed);
 
-            _lastShotTime = _delay;
+            _lastShotTime = GunCharacteristics.FireRate;
         }
 
         _lastShotTime -= Time.fixedDeltaTime;

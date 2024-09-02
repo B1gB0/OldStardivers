@@ -6,6 +6,8 @@ namespace Build.Game.Scripts
 {
     public class Health : MonoBehaviour, IDamageable
     {
+        private const float RecoveryRate = 10f;
+        
         [field: SerializeField] public float Value { get; private set; }
         
         [SerializeField] private ParticleSystem _hitEffect;
@@ -13,8 +15,7 @@ namespace Build.Game.Scripts
 
         private ParticleSystem _hitEffectRef;
         private Coroutine _coroutine;
-        private float _recoveryRate = 10f;
-        
+
         public event Action Die;
 
         public event Action<float, Transform> IsDamaged;
@@ -80,7 +81,7 @@ namespace Build.Game.Scripts
         {
             while (currentHealth != targetHealth)
             {
-                currentHealth = Mathf.MoveTowards(currentHealth, targetHealth, _recoveryRate * Time.deltaTime);
+                currentHealth = Mathf.MoveTowards(currentHealth, targetHealth, RecoveryRate * Time.deltaTime);
                 HealthChanged?.Invoke(currentHealth, maxHealth, targetHealth);
 
                 yield return null;

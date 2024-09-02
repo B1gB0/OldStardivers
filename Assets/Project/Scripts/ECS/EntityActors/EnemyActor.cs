@@ -12,14 +12,15 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
         [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
 
-        private Score _score;
-        private FloatingDamageTextPresenter _damageTextPresenter;
+        private ExperiencePoints experiencePoints;
+        private FloatingDamageTextService _damageTextService;
 
-        public void Construct(Score score, FloatingDamageTextPresenter damageTextPresenter)
+        public void Construct(ExperiencePoints experiencePoints, FloatingDamageTextService damageTextService)
         {
-            _score = score;
-            _damageTextPresenter = damageTextPresenter;
-            Health.IsDamaged += _damageTextPresenter.OnChangedDamageText;
+            this.experiencePoints = experiencePoints;
+            
+            _damageTextService = damageTextService;
+            Health.IsDamaged += _damageTextService.OnChangedDamageText;
         }
 
         private void OnEnable()
@@ -39,8 +40,8 @@ namespace Build.Game.Scripts.ECS.EntityActors
 
         private void Die()
         {
-            Health.IsDamaged -= _damageTextPresenter.OnChangedDamageText;
-            _score.OnKill(this);
+            Health.IsDamaged -= _damageTextService.OnChangedDamageText;
+            experiencePoints.OnKill(this);
             gameObject.SetActive(false);
         }
     }

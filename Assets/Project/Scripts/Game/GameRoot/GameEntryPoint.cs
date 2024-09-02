@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Build.Game.Scripts.Game.Gameplay;
 using Build.Game.Scripts.Game.Gameplay.GameplayRoot;
+using Project.Scripts.UI;
 using R3;
 using Source.Game.Scripts;
 using Source.Game.Scripts.Utils;
@@ -15,11 +16,13 @@ namespace Build.Game.Scripts.Game.GameRoot
         private const string UIRootViewPath = "UIRoot";
         private const string CoroutinesName = "[Coroutines]";
         
+        private readonly Coroutines _coroutines;
+        private readonly UIRootView _uiRoot;
+
         private static GameEntryPoint _instance;
         
-        private Coroutines _coroutines;
-        private UIRootView _uiRoot;
-        
+        private AsyncOperation _asyncOperation;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AutostartGame()
         {
@@ -113,7 +116,14 @@ namespace Build.Game.Scripts.Game.GameRoot
 
         private IEnumerator LoadScene(string sceneName)
         {
-            yield return SceneManager.LoadSceneAsync(sceneName);
+            _asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            
+            while (!_asyncOperation.isDone)
+            {
+                _uiRoot.ShowLoadingProgress(_asyncOperation.progress);
+                
+                yield return null;
+            }
         }
     }
 }
