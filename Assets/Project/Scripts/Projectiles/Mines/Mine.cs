@@ -6,11 +6,13 @@ using UnityEngine;
 
 public class Mine : MonoBehaviour
 {
-    [field: SerializeField] public float Damage { get; private set; }
-
     [field: SerializeField] public float LifeTime { get; private set; } = 4f;
     
-    [field: SerializeField] public ParticleSystem ExplosionEffect { get; private set; }
+    //private AudioSource _source;
+
+    private ParticleSystem _explosionEffect;
+    private float _damage;
+    private float _explosionRadius;
 
     private void OnEnable()
     {
@@ -21,15 +23,52 @@ public class Mine : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent(out EnemyActor enemy))
         {
-            enemy.Health.TakeDamage(Damage);
-            ExplosionEffect.Play();
-            gameObject.SetActive(false);
+            Explode();
+            StopCoroutine(LifeRoutine());
         }
     }
 
     private void OnDisable()
     {
         StopCoroutine(LifeRoutine());
+    }
+
+    public void SetCharacteristics(float damage, float explosionRadius)
+    {
+        _damage = damage;
+        _explosionRadius = explosionRadius;
+    }
+    
+    public void GetEffect(ParticleSystem effect)
+    {
+        _explosionEffect = effect;
+    }
+    
+    private void Explode()
+    {
+        //_source.Play();
+        _explosionEffect.transform.position = transform.position;
+        _explosionEffect.Play();
+
+        foreach (EnemyActor explodableObject in GetExplodableObjects())
+        {
+            explodableObject.Health.TakeDamage(_damage);
+        }
+        
+        gameObject.SetActive(false);
+    }
+    
+    private List<EnemyActor> GetExplodableObjects()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
+
+        List<EnemyActor> enemies = new();
+
+        foreach (Collider hit in hits)
+            if (hit.attachedRigidbody != null && hit.gameObject.TryGetComponent(out EnemyActor enemyActor))
+                enemies.Add(enemyActor);
+
+        return enemies;
     }
 
     private IEnumerator LifeRoutine()

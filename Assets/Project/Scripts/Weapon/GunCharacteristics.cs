@@ -1,15 +1,33 @@
 ﻿namespace Project.Game.Scripts
 {
-    public class GunCharacteristics : WeaponCharacteristics
+    public class GunCharacteristics
     {
-        private const float RangeAttackStartValue = 5f;
-        private const float FireRateStartValue = 2f;
-        private const float BulletSpeedStartValue = 10f;
-        private const float DamageStartValue = 2f;
+        public float RangeAttack { get; private set; } = 5f;
+
+        public float FireRate { get; private set; } = 2f;
+
+        public float BulletSpeed { get; private set; } = 10f;
+
+        public float Damage { get; private set; } = 2f;
         
-        public GunCharacteristics()
+        public void IncreaseDamage(float damageFactor)
         {
-            SetStartValues(RangeAttackStartValue, FireRateStartValue, BulletSpeedStartValue, DamageStartValue);
+            Damage += Damage * damageFactor;
+        }
+
+        public void IncreaseFireRate(float fireRateFactor)
+        {
+            FireRate -= FireRate * fireRateFactor;
+        }
+
+        public void IncreaseBulletSpeed(float bulletSpeedFactor)
+        {
+            BulletSpeed += BulletSpeed * bulletSpeedFactor;
+        }
+
+        public void IncreaseRangeAttack(float rangeAttackFactor)
+        {
+            RangeAttack += RangeAttack * rangeAttackFactor;
         }
     }
 }

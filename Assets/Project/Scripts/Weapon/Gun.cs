@@ -8,6 +8,7 @@ public class Gun : Weapon
     private const string ObjectPoolBulletName = "PoolBullets";
     private const string ObjectPoolSoundsOfShotsName = "PoolAssaultRifleSoundsOfShots";
     private const float MinValue = 0f;
+    private readonly GunCharacteristics _gunCharacteristics = new();
     
     [SerializeField] private Bullet _bulletPrefab;
     [SerializeField] private AssaultRifleSoundOfShot soundPrefab;
@@ -26,9 +27,6 @@ public class Gun : Weapon
     private ObjectPool<Bullet> _poolBullets;
     private ObjectPool<AssaultRifleSoundOfShot> _poolSoundsOfShots;
 
-    public GunCharacteristics GunCharacteristics { get; private set; } = new();
-    
-    public event Action<float> DamageIsChanged;
 
     public void Construct(ClosestEnemyDetector detector)
     {
@@ -51,7 +49,7 @@ public class Gun : Weapon
         
         if (closestEnemy != null)
         {
-            if (Vector3.Distance(closestEnemy.transform.position, transform.position) <= GunCharacteristics.RangeAttack)
+            if (Vector3.Distance(closestEnemy.transform.position, transform.position) <= _gunCharacteristics.RangeAttack)
             {
                 Shoot();
             }
@@ -73,9 +71,9 @@ public class Gun : Weapon
             _bullet.transform.position = _shootPoint.position;
 
             _bullet.SetDirection(closestEnemy.transform);
-            _bullet.SetCharacteristics(GunCharacteristics.Damage, GunCharacteristics.BulletSpeed);
+            _bullet.SetCharacteristics(_gunCharacteristics.Damage, _gunCharacteristics.BulletSpeed);
 
-            _lastShotTime = GunCharacteristics.FireRate;
+            _lastShotTime = _gunCharacteristics.FireRate;
         }
 
         _lastShotTime -= Time.fixedDeltaTime;

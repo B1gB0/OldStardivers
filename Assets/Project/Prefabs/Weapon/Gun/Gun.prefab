@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5126a6c55a4a4104aa45744b08f118e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: Gun
   _bulletPrefab: {fileID: 6632399667553593021, guid: 289276c1b0a79c446bff8e67d8c2004c, type: 3}
   soundPrefab: {fileID: -5471474892450395940, guid: 76891a962812825438c456c0be4c88e3, type: 3}
   _countBullets: 4

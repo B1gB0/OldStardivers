@@ -6,8 +6,6 @@ namespace Source.Game.Scripts
 {
     public class UIRootView : MonoBehaviour
     {
-        private readonly PauseService _pauseService = new ();
-        
         [SerializeField] private Transform _uiSceneContainer;
 
         [SerializeField] private LoadingPanel _loadingPanel;
@@ -16,16 +14,16 @@ namespace Source.Game.Scripts
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _backToSceneButton;
 
-        public PauseService PauseService => _pauseService;
+        public PauseService PauseService { get; } = new ();
 
         private void Awake()
         {
+            _settingsPanel.GetPauseService(PauseService);
             HideLoadingScreen();
         }
 
         private void Start()
         {
-            _settingsPanel.GetPauseService(_pauseService);
             _settingsPanel.SetValuesVolume();
             _settingsPanel.Hide();
         }

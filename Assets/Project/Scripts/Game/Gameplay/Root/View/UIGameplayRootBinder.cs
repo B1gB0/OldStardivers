@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Build.Game.Scripts;
 using R3;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +5,8 @@ using UnityEngine.UI;
 public class UIGameplayRootBinder : MonoBehaviour
 {
     [field: SerializeField] public Joystick Joystick { get; private set; }
+    
+    [field: SerializeField] public Button MinesButton { get; private set; }
 
     private void Awake()
     {

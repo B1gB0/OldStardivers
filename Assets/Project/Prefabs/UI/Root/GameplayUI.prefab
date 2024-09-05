@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Joystick>k__BackingField: {fileID: 7770764998351715415}
+  <MinesButton>k__BackingField: {fileID: 8418306886228452045}
 --- !u!1 &4066015916618746330
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,12 +292,12 @@ GameObject:
   - component: {fileID: 7719279080852135896}
   - component: {fileID: 8418306886228452045}
   m_Layer: 5
-  m_Name: ActivateMineButton
+  m_Name: ActivateMinesButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6151085415395658193
 RectTransform:
   m_ObjectHideFlags: 0

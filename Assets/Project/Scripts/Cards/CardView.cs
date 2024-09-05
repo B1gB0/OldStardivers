@@ -52,7 +52,7 @@ public class CardView : MonoBehaviour, IView
         _level.text = _card.Level;
         
         if(_card is ImprovementCard improvementCard)
-            _characteristics.text = improvementCard.Value * 10 + "% " + improvementCard.TypeCharacteristics;
+            _characteristics.text = improvementCard.Value * 10 + "% " + improvementCard.CharacteristicsType;
         else if (_card is WeaponCard weaponCard)
             _characteristics.text = weaponCard.Characteristics;
     }

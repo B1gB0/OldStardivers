@@ -25,9 +25,6 @@ namespace Project.Scripts.UI
         private float _minValueSlider = 0f;
         private float _startValueSlider = 0.8f;
 
-        private float _playTime = 1f;
-        private float _stopTime = 0f;
-
         private PauseService _pauseService;
 
         private void OnEnable()

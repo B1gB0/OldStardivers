@@ -16,6 +16,7 @@ namespace Build.Game.Scripts.Game.Gameplay
 {
     public class GameplayEntryPoint : MonoBehaviour
     {
+        private readonly WeaponHolder _weaponHolder = new ();
         private readonly DataFactory _dataFactory = new ();
 
         [SerializeField] private WeaponFactory _weaponFactory;
@@ -41,8 +42,6 @@ namespace Build.Game.Scripts.Game.Gameplay
         private ProgressRadialBar _progressBar;
         private LevelUpPanel _levelUpPanel;
 
-        private WeaponHolder _weaponHolder = new ();
-        
         private void Start()
         {
             _playerData = _dataFactory.CreatePlayerData();
@@ -81,6 +80,7 @@ namespace Build.Game.Scripts.Game.Gameplay
             _progressBar = _viewFactory.CreateProgressBar(_experiencePoints, _gameInitSystem.PlayerTransform);
             
             _weaponFactory.GetData(_gameInitSystem.EnemyDetector, _gameInitSystem.PlayerTransform, _weaponHolder);
+            
             _weaponFactory.CreateGun();
 
             _experiencePoints.RewardIsShowed += _levelUpPanel.OnLevelUpgraded;
@@ -116,11 +116,14 @@ namespace Build.Game.Scripts.Game.Gameplay
         public Observable<GameplayExitParameters> Run(UIRootView uiRoot, GameplayEnterParameters enterParameters)
         {
             _levelUpPanel.GetServices(uiRoot.PauseService, _weaponFactory, _weaponHolder);
+            _levelUpPanel.GetStartImprovements();
             
             UIGameplayRootBinder uiScene = Instantiate(_sceneUIRootPrefab);
             _healthBar.transform.SetParent(uiScene.transform);
             _levelUpPanel.transform.SetParent(uiScene.transform);
+            _weaponFactory.GetMinesButton(uiScene.MinesButton);
             uiRoot.AttachSceneUI(uiScene.gameObject);
+            
 
             var exitSceneSignalSubject = new Subject<Unit>();
             uiScene.Bind(exitSceneSignalSubject);

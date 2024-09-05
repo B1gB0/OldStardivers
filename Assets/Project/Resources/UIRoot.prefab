@@ -1106,8 +1106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3b71ee871a43babbb3dfd67e9be8b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingPanel: {fileID: 2750651615137919353}
   _uiSceneContainer: {fileID: 1191719148052623696}
+  _loadingPanel: {fileID: 2750651615137919353}
   _settingsPanel: {fileID: 662423407877498009}
   _settingsButton: {fileID: 1135128379573836590}
   _backToSceneButton: {fileID: 3955803859263679372}

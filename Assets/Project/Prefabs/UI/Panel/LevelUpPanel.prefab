@@ -253,8 +253,14 @@ MonoBehaviour:
   - {fileID: 8128505878347562789}
   _improvementCards:
   - {fileID: 11400000, guid: fc6f295cc28ef454bbeff762101f0d64, type: 2}
+  - {fileID: 11400000, guid: 305dc90260710d84aadfdd80263898e6, type: 2}
+  - {fileID: 11400000, guid: f56522924e775824eb07b897ea03c346, type: 2}
+  - {fileID: 11400000, guid: 6b79040c2975d554aaacbb673dc7e015, type: 2}
+  - {fileID: 11400000, guid: 9aaeeeff6919d7e48b2494dbe4aefc7e, type: 2}
+  - {fileID: 11400000, guid: 9d1b40c34dfa4f6499ac1fce19095a1d, type: 2}
+  - {fileID: 11400000, guid: 37964d5f6539f594cae94ff7f4e8437b, type: 2}
   _weaponCards:
-  - {fileID: 11400000, guid: 04d61be2a00dce64b97d22584d1c9bf1, type: 2}
+  - {fileID: 11400000, guid: e9665e2d91089174a873bc39c0561dda, type: 2}
 --- !u!1001 &514219089606288719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,6 +272,10 @@ PrefabInstance:
     - target: {fileID: 2425542321147362181, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
       propertyPath: m_Name
       value: FirstCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425542321147362181, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3173878013588132870, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -507,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 2425542321147362181, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
       propertyPath: m_Name
       value: ThirdCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425542321147362181, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3173878013588132870, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -752,6 +766,10 @@ PrefabInstance:
     - target: {fileID: 2425542321147362181, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
       propertyPath: m_Name
       value: SecondCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425542321147362181, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3173878013588132870, guid: 3474560cae0897249a8df74f366e2c4a, type: 3}
       propertyPath: m_AnchoredPosition.x

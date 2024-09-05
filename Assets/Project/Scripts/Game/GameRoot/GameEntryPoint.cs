@@ -103,7 +103,7 @@ namespace Build.Game.Scripts.Game.GameRoot
             yield return LoadScene(Scenes.Boot);
             yield return LoadScene(Scenes.Gameplay);
             
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2);
 
             var sceneEntryPoint = Object.FindFirstObjectByType<GameplayEntryPoint>();
             sceneEntryPoint.Run(_uiRoot, enterParameters).Subscribe(gameplayExitParameters =>
