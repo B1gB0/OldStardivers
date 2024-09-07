@@ -161,11 +161,9 @@ namespace Project.Scripts.UI
             }
             else if (card is WeaponCard weaponCard)
             {
-                if (weaponCard.Weapon.Type == Mines)
-                {
-                    _weaponFactory.CreateMines();
-                    UpdateImprovementCardsByWeapon(weaponCard.Weapon);
-                }
+                _weaponFactory.CreateWeapon(weaponCard.Weapon.Type);
+                UpdateImprovementCardsByWeapon(weaponCard.Weapon);
+                _currentWeaponCards.Remove(weaponCard);
             }
 
             foreach (CardView view in _cardsView)

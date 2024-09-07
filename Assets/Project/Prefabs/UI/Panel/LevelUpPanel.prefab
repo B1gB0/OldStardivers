@@ -259,8 +259,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9aaeeeff6919d7e48b2494dbe4aefc7e, type: 2}
   - {fileID: 11400000, guid: 9d1b40c34dfa4f6499ac1fce19095a1d, type: 2}
   - {fileID: 11400000, guid: 37964d5f6539f594cae94ff7f4e8437b, type: 2}
+  - {fileID: 11400000, guid: 63a6dadb70d665f4195fd7de7d76d132, type: 2}
+  - {fileID: 11400000, guid: 491ebbb4bb9bbd8458f6688b82265e57, type: 2}
+  - {fileID: 11400000, guid: 20c876cd033f2ca40a7f7647c6598af2, type: 2}
+  - {fileID: 11400000, guid: 3b2e27a705f2b654a88345e560420129, type: 2}
+  - {fileID: 11400000, guid: aeb5c95f901b5c949821a6af7d5bc624, type: 2}
   _weaponCards:
   - {fileID: 11400000, guid: e9665e2d91089174a873bc39c0561dda, type: 2}
+  - {fileID: 11400000, guid: 54391459596ec354ab54e65370e6b376, type: 2}
 --- !u!1001 &514219089606288719
 PrefabInstance:
   m_ObjectHideFlags: 0

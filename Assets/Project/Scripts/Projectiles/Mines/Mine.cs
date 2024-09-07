@@ -1,24 +1,15 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Build.Game.Scripts.ECS.EntityActors;
+using Project.Scripts.Projectiles;
 using UnityEngine;
 
-public class Mine : MonoBehaviour
+public class Mine : Projectile
 {
-    [field: SerializeField] public float LifeTime { get; private set; } = 4f;
-    
-    //private AudioSource _source;
-
     private ParticleSystem _explosionEffect;
+    
     private float _damage;
     private float _explosionRadius;
 
-    private void OnEnable()
-    {
-        StartCoroutine(LifeRoutine());
-    }
-    
     private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.TryGetComponent(out EnemyActor enemy))
@@ -26,11 +17,6 @@ public class Mine : MonoBehaviour
             Explode();
             StopCoroutine(LifeRoutine());
         }
-    }
-
-    private void OnDisable()
-    {
-        StopCoroutine(LifeRoutine());
     }
 
     public void SetCharacteristics(float damage, float explosionRadius)
@@ -50,15 +36,15 @@ public class Mine : MonoBehaviour
         _explosionEffect.transform.position = transform.position;
         _explosionEffect.Play();
 
-        foreach (EnemyActor explodableObject in GetExplodableObjects())
+        foreach (EnemyActor explosiveObject in GetExplosiveObjects())
         {
-            explodableObject.Health.TakeDamage(_damage);
+            explosiveObject.Health.TakeDamage(_damage);
         }
         
         gameObject.SetActive(false);
     }
     
-    private List<EnemyActor> GetExplodableObjects()
+    private List<EnemyActor> GetExplosiveObjects()
     {
         Collider[] hits = Physics.OverlapSphere(transform.position, _explosionRadius);
 
@@ -69,12 +55,5 @@ public class Mine : MonoBehaviour
                 enemies.Add(enemyActor);
 
         return enemies;
-    }
-
-    private IEnumerator LifeRoutine()
-    {
-        yield return new WaitForSeconds(LifeTime);
-        
-        gameObject.SetActive(false);
     }
 }

@@ -16,6 +16,8 @@ namespace Build.Game.Scripts.Game.Gameplay
 {
     public class GameplayEntryPoint : MonoBehaviour
     {
+        private const string StartWeaponType = "Gun";
+        
         private readonly WeaponHolder _weaponHolder = new ();
         private readonly DataFactory _dataFactory = new ();
 
@@ -80,8 +82,7 @@ namespace Build.Game.Scripts.Game.Gameplay
             _progressBar = _viewFactory.CreateProgressBar(_experiencePoints, _gameInitSystem.PlayerTransform);
             
             _weaponFactory.GetData(_gameInitSystem.EnemyDetector, _gameInitSystem.PlayerTransform, _weaponHolder);
-            
-            _weaponFactory.CreateGun();
+            _weaponFactory.CreateWeapon(StartWeaponType);
 
             _experiencePoints.RewardIsShowed += _levelUpPanel.OnLevelUpgraded;
             

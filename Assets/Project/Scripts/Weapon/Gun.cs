@@ -7,24 +7,24 @@ public class Gun : Weapon
 {
     private const string ObjectPoolBulletName = "PoolBullets";
     private const string ObjectPoolSoundsOfShotsName = "PoolAssaultRifleSoundsOfShots";
+    private const bool IsAutoExpandPool = true;
     private const float MinValue = 0f;
+    
     private readonly GunCharacteristics _gunCharacteristics = new();
     
-    [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private GunBullet _bulletPrefab;
     [SerializeField] private AssaultRifleSoundOfShot soundPrefab;
     
     [SerializeField] private int _countBullets;
-
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private bool _isAutoExpandPool = false;
 
     private float _lastShotTime;
-    private Bullet _bullet;
+    private GunBullet _bullet;
 
     private ClosestEnemyDetector _detector;
     private EnemyActor closestEnemy;
 
-    private ObjectPool<Bullet> _poolBullets;
+    private ObjectPool<GunBullet> _poolBullets;
     private ObjectPool<AssaultRifleSoundOfShot> _poolSoundsOfShots;
 
 
@@ -35,12 +35,12 @@ public class Gun : Weapon
 
     private void Awake()
     {
-        _poolBullets = new ObjectPool<Bullet>(_bulletPrefab, _countBullets, new GameObject(ObjectPoolBulletName).transform);
+        _poolBullets = new ObjectPool<GunBullet>(_bulletPrefab, _countBullets, new GameObject(ObjectPoolBulletName).transform);
         _poolSoundsOfShots = new ObjectPool<AssaultRifleSoundOfShot>(soundPrefab, _countBullets,
             new GameObject(ObjectPoolSoundsOfShotsName).transform);
 
-        _poolSoundsOfShots.AutoExpand = _isAutoExpandPool;
-        _poolBullets.AutoExpand = _isAutoExpandPool;
+        _poolSoundsOfShots.AutoExpand = IsAutoExpandPool;
+        _poolBullets.AutoExpand = IsAutoExpandPool;
     }
 
     private void FixedUpdate()

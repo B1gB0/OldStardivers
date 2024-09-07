@@ -6,9 +6,9 @@ namespace Project.Game.Scripts
     public class Mines : Weapon
     {
         private const float MinValue = 0f;
+        private const bool IsAutoExpandPool = true;
         
         private readonly MineCharacteristics _mineCharacteristics = new ();
-        private const bool IsAutoExpandPool = true;
 
         [SerializeField] private ParticleSystem _explosionEffect;
         [SerializeField] private int _countMines;
